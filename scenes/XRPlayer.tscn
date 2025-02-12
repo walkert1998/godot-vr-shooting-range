@@ -1,0 +1,117 @@
+[gd_scene load_steps=18 format=3 uid="uid://dsqntlr6t87q4"]
+
+[ext_resource type="PackedScene" uid="uid://hpr0v012ghsb" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_tac_glove.tscn" id="2_kq2m5"]
+[ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="2_w17sv"]
+[ext_resource type="PackedScene" uid="uid://dup2vp8v5rpi5" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_tac_glove.tscn" id="3_cbdfp"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_u851r"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_bt2oo"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="5_i30af"]
+[ext_resource type="PackedScene" uid="uid://bkv43ec6chcf3" path="res://addons/godot-xr-tools/hands/scenes/collision/collision_hand_left.tscn" id="5_l5dmp"]
+[ext_resource type="PackedScene" uid="uid://fiul51tsyoop" path="res://addons/godot-xr-tools/functions/function_teleport.tscn" id="6_8bnpp"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_qxgip"]
+[ext_resource type="PackedScene" uid="uid://c3uoohvnshach" path="res://addons/godot-xr-tools/hands/scenes/collision/collision_hand_right.tscn" id="9_h4dmq"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="12_igmon"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumbler.gd" id="14_kb6uy"]
+
+[sub_resource type="Resource" id="Resource_e4211"]
+script = ExtResource("12_igmon")
+magnitude = 0.3
+active_during_pause = false
+indefinite = false
+duration_ms = 100
+
+[sub_resource type="Resource" id="Resource_6uq6k"]
+script = ExtResource("12_igmon")
+magnitude = 0.3
+active_during_pause = false
+indefinite = false
+duration_ms = 100
+
+[sub_resource type="SphereMesh" id="SphereMesh_fedcg"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_py5fb"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vl1wm"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 1
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_py5fb")
+uv1_scale = Vector3(-1, 1, 1)
+texture_filter = 1
+
+[node name="XROrigin3D" type="XROrigin3D"]
+current = true
+
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+current = true
+
+[node name="VRCommonShaderCache" parent="XRCamera3D" instance=ExtResource("2_w17sv")]
+
+[node name="LeftHand" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"left_hand"
+
+[node name="Marker3D" type="Marker3D" parent="LeftHand"]
+
+[node name="LeftHand" parent="LeftHand" instance=ExtResource("2_kq2m5")]
+
+[node name="MovementDirect" parent="LeftHand" instance=ExtResource("3_u851r")]
+strafe = true
+
+[node name="FunctionPickup" parent="LeftHand" instance=ExtResource("4_bt2oo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0516316, 0.0757655)
+grab_distance = 0.1
+grab_collision_mask = 328708
+ranged_distance = 1.0
+
+[node name="CollisionHandLeft" parent="LeftHand" instance=ExtResource("5_l5dmp")]
+
+[node name="FunctionTeleport" parent="LeftHand" instance=ExtResource("6_8bnpp")]
+enabled = false
+
+[node name="XRToolsRumbler" type="Node" parent="LeftHand" node_paths=PackedStringArray("target")]
+script = ExtResource("14_kb6uy")
+event = SubResource("Resource_e4211")
+target = NodePath("..")
+
+[node name="RightHand" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
+tracker = &"right_hand"
+
+[node name="Marker3D" type="Marker3D" parent="RightHand"]
+
+[node name="RightHand" parent="RightHand" instance=ExtResource("3_cbdfp")]
+
+[node name="MovementTurn" parent="RightHand" instance=ExtResource("5_i30af")]
+turn_mode = 1
+step_turn_angle = 45.0
+
+[node name="FunctionPickup" parent="RightHand" instance=ExtResource("4_bt2oo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0516316, 0.0757655)
+grab_distance = 0.1
+grab_collision_mask = 328708
+ranged_distance = 1.0
+
+[node name="CollisionHandRight" parent="RightHand" instance=ExtResource("9_h4dmq")]
+
+[node name="XRToolsRumbler" type="Node" parent="RightHand" node_paths=PackedStringArray("target")]
+script = ExtResource("14_kb6uy")
+event = SubResource("Resource_6uq6k")
+target = NodePath("..")
+
+[node name="PlayerBody" parent="." instance=ExtResource("6_qxgip")]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(4096, 2048)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = SubResource("SphereMesh_fedcg")
+skeleton = NodePath("../XRCamera3D")
+surface_material_override/0 = SubResource("StandardMaterial3D_vl1wm")
