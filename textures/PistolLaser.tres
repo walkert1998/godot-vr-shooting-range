@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://0yqp168tuer6"]
+
+[ext_resource type="Texture2D" uid="uid://bk35ock246aqy" path="res://Textures/pistol-laser-albedo.png" id="1_6vqcw"]
+[ext_resource type="Texture2D" uid="uid://by1togohv10mo" path="res://Textures/pistol-laser-AO-emission.png" id="2_ke0bc"]
+[ext_resource type="Texture2D" uid="uid://c4mvfao8ogqfh" path="res://Textures/pistol-laser-normal.png" id="3_x35wq"]
+
+[resource]
+albedo_texture = ExtResource("1_6vqcw")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("2_ke0bc")
+normal_enabled = true
+normal_texture = ExtResource("3_x35wq")
