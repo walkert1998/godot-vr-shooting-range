@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b763k4h3dh70l"]
+
+[node name="FloatingText" type="Node3D"]
+
+[node name="Label3D" type="Label3D" parent="."]
+pixel_size = 0.01
+billboard = 1
+text = "+100"
