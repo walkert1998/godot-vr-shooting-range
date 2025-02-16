@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dopx6i0wi57pp"
+path="res://.godot/imported/9mmPB.obj-1494ee48058b16d351eb681caf454084.mesh"
+
+[deps]
+
+files=["res://.godot/imported/9mmPB.obj-1494ee48058b16d351eb681caf454084.mesh"]
+
+source_file="res://models/ShootingGallery - Enviroment Pack/Miscellaneous/Bullets/9mmPB/9mmPB.obj"
+dest_files=["res://.godot/imported/9mmPB.obj-1494ee48058b16d351eb681caf454084.mesh", "res://.godot/imported/9mmPB.obj-1494ee48058b16d351eb681caf454084.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

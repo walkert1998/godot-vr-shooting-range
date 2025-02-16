@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfp4d0fnws303"]
+
+[ext_resource type="PackedScene" uid="uid://cme66uldrjl2i" path="res://addons/godot-xr-tools/interactables/interactable_area_button.tscn" id="1_hsu7h"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rqxqm"]
+points = PackedVector3Array(0.1, 0.05, 0.05, 0.1, 0.05, -0.05, -0.1, 0.05, 0.05, 0.1, -0.05, 0.05, 0.1, -0.05, -0.05, -0.1, 0.05, -0.05, -0.1, -0.05, 0.05, -0.1, -0.05, -0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1au8b"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_v1o5v"]
+material = SubResource("StandardMaterial3D_1au8b")
+size = Vector3(0.2, 0.1, 0.1)
+
+[node name="InteractableAreaButton" instance=ExtResource("1_hsu7h")]
+button = NodePath("MeshInstance3D")
+displacement = Vector3(0, -0.033, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
+shape = SubResource("ConvexPolygonShape3D_rqxqm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+mesh = SubResource("BoxMesh_v1o5v")
+
+[node name="Label3D" type="Label3D" parent="MeshInstance3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0523368)
+pixel_size = 0.002
+text = "HELP"

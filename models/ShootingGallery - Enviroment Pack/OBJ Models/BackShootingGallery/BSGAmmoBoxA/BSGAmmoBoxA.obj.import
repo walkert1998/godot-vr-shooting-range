@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b5iyaua5yfcrp"
+path="res://.godot/imported/BSGAmmoBoxA.obj-01987fbfc3d6fd3ea048d58a3973a9d9.mesh"
+
+[deps]
+
+files=["res://.godot/imported/BSGAmmoBoxA.obj-01987fbfc3d6fd3ea048d58a3973a9d9.mesh"]
+
+source_file="res://models/ShootingGallery - Enviroment Pack/OBJ Models/BackShootingGallery/BSGAmmoBoxA/BSGAmmoBoxA.obj"
+dest_files=["res://.godot/imported/BSGAmmoBoxA.obj-01987fbfc3d6fd3ea048d58a3973a9d9.mesh", "res://.godot/imported/BSGAmmoBoxA.obj-01987fbfc3d6fd3ea048d58a3973a9d9.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

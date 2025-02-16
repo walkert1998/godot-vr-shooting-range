@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dg41oqednoh6j"
+path="res://.godot/imported/BSGFloorA.obj-0fff22f36861b602b9be52ac81a6f9f3.mesh"
+
+[deps]
+
+files=["res://.godot/imported/BSGFloorA.obj-0fff22f36861b602b9be52ac81a6f9f3.mesh"]
+
+source_file="res://models/ShootingGallery - Enviroment Pack/OBJ Models/BackShootingGallery/BGSFloorA/BSGFloorA.obj"
+dest_files=["res://.godot/imported/BSGFloorA.obj-0fff22f36861b602b9be52ac81a6f9f3.mesh", "res://.godot/imported/BSGFloorA.obj-0fff22f36861b602b9be52ac81a6f9f3.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

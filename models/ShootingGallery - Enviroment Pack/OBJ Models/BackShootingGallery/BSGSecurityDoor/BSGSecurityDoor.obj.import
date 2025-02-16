@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://djkvgloykdnwc"
+path="res://.godot/imported/BSGSecurityDoor.obj-1fceee8257c1e4b06aca33ae8eaaac83.mesh"
+
+[deps]
+
+files=["res://.godot/imported/BSGSecurityDoor.obj-1fceee8257c1e4b06aca33ae8eaaac83.mesh"]
+
+source_file="res://models/ShootingGallery - Enviroment Pack/OBJ Models/BackShootingGallery/BSGSecurityDoor/BSGSecurityDoor.obj"
+dest_files=["res://.godot/imported/BSGSecurityDoor.obj-1fceee8257c1e4b06aca33ae8eaaac83.mesh", "res://.godot/imported/BSGSecurityDoor.obj-1fceee8257c1e4b06aca33ae8eaaac83.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

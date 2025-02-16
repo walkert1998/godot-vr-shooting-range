@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://d4nktm45h0aq4"
+path="res://.godot/imported/SGPictureA.obj-fdb2e5aed06d8a4ff7bea65a1e088430.mesh"
+
+[deps]
+
+files=["res://.godot/imported/SGPictureA.obj-fdb2e5aed06d8a4ff7bea65a1e088430.mesh"]
+
+source_file="res://models/ShootingGallery - Enviroment Pack/OBJ Models/SmallGallery/SGPictureA/SGPictureA.obj"
+dest_files=["res://.godot/imported/SGPictureA.obj-fdb2e5aed06d8a4ff7bea65a1e088430.mesh", "res://.godot/imported/SGPictureA.obj-fdb2e5aed06d8a4ff7bea65a1e088430.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

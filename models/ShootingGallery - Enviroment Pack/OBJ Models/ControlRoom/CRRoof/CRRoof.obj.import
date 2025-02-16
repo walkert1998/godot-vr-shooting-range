@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ck3eicjhrkp53"
+path="res://.godot/imported/CRRoof.obj-196a0e187ce724fb89246e6b631e2a91.mesh"
+
+[deps]
+
+files=["res://.godot/imported/CRRoof.obj-196a0e187ce724fb89246e6b631e2a91.mesh"]
+
+source_file="res://models/ShootingGallery - Enviroment Pack/OBJ Models/ControlRoom/CRRoof/CRRoof.obj"
+dest_files=["res://.godot/imported/CRRoof.obj-196a0e187ce724fb89246e6b631e2a91.mesh", "res://.godot/imported/CRRoof.obj-196a0e187ce724fb89246e6b631e2a91.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

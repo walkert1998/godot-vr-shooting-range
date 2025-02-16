@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cro185djex148"]
+
+[ext_resource type="PackedScene" uid="uid://b7t4kkxx715ii" path="res://models/pistol-bullet-casing.fbx" id="1_ulao2"]
+[ext_resource type="Material" uid="uid://dsqrvpgr7w41g" path="res://textures/pistol_bullet_1.tres" id="2_dj43d"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rdodu"]
+radius = 0.015
+
+[node name="PistolBulletCasing" type="RigidBody3D"]
+
+[node name="pistol-bullet-casing" parent="." instance=ExtResource("1_ulao2")]
+transform = Transform3D(1, 0, 0, 0, -3.71547e-08, -1, 0, 0.85, -4.37114e-08, 0, 0.000240423, -0.00400192)
+
+[node name="9mmPB" parent="pistol-bullet-casing" index="0"]
+surface_material_override/0 = ExtResource("2_dj43d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_rdodu")
+
+[editable path="pistol-bullet-casing"]

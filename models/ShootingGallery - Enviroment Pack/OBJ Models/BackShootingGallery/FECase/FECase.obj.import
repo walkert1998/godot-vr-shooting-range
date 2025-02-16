@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cqe4jfn5hldcl"
+path="res://.godot/imported/FECase.obj-122dc90d91f08d5ac742cc309e5ae356.mesh"
+
+[deps]
+
+files=["res://.godot/imported/FECase.obj-122dc90d91f08d5ac742cc309e5ae356.mesh"]
+
+source_file="res://models/ShootingGallery - Enviroment Pack/OBJ Models/BackShootingGallery/FECase/FECase.obj"
+dest_files=["res://.godot/imported/FECase.obj-122dc90d91f08d5ac742cc309e5ae356.mesh", "res://.godot/imported/FECase.obj-122dc90d91f08d5ac742cc309e5ae356.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

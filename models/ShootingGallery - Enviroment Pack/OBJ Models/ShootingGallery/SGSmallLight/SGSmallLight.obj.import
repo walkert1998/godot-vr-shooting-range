@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cafbumc0by3tg"
+path="res://.godot/imported/SGSmallLight.obj-eb37b757d4f94d0f65fc0f89493b3e9f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/SGSmallLight.obj-eb37b757d4f94d0f65fc0f89493b3e9f.mesh"]
+
+source_file="res://models/ShootingGallery - Enviroment Pack/OBJ Models/ShootingGallery/SGSmallLight/SGSmallLight.obj"
+dest_files=["res://.godot/imported/SGSmallLight.obj-eb37b757d4f94d0f65fc0f89493b3e9f.mesh", "res://.godot/imported/SGSmallLight.obj-eb37b757d4f94d0f65fc0f89493b3e9f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

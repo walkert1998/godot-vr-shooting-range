@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cniw1x0naimy"
+path="res://.godot/imported/BSGAmmoRackA.obj-f1cc75078446d7251eb145c4e2b78087.mesh"
+
+[deps]
+
+files=["res://.godot/imported/BSGAmmoRackA.obj-f1cc75078446d7251eb145c4e2b78087.mesh"]
+
+source_file="res://models/ShootingGallery - Enviroment Pack/OBJ Models/BackShootingGallery/BSGAmmoRackA/BSGAmmoRackA.obj"
+dest_files=["res://.godot/imported/BSGAmmoRackA.obj-f1cc75078446d7251eb145c4e2b78087.mesh", "res://.godot/imported/BSGAmmoRackA.obj-f1cc75078446d7251eb145c4e2b78087.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

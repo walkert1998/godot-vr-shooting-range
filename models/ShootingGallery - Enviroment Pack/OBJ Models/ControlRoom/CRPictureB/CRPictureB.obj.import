@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ds0rtqr40n26l"
+path="res://.godot/imported/CRPictureB.obj-31f627cdaed47922131b690a09ff118c.mesh"
+
+[deps]
+
+files=["res://.godot/imported/CRPictureB.obj-31f627cdaed47922131b690a09ff118c.mesh"]
+
+source_file="res://models/ShootingGallery - Enviroment Pack/OBJ Models/ControlRoom/CRPictureB/CRPictureB.obj"
+dest_files=["res://.godot/imported/CRPictureB.obj-31f627cdaed47922131b690a09ff118c.mesh", "res://.godot/imported/CRPictureB.obj-31f627cdaed47922131b690a09ff118c.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

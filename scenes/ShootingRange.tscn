@@ -1,0 +1,133 @@
+[gd_scene load_steps=15 format=3 uid="uid://b8kir2jqyt4ws"]
+
+[ext_resource type="PackedScene" uid="uid://dsqntlr6t87q4" path="res://scenes/XRPlayer.tscn" id="1_gfqum"]
+[ext_resource type="PackedScene" uid="uid://bnhuv6vvqvn5s" path="res://scenes/target.tscn" id="2_m7cpe"]
+[ext_resource type="PackedScene" uid="uid://dlutry7ttvvb5" path="res://scenes/vr_pistol.tscn" id="3_w0br1"]
+[ext_resource type="PackedScene" uid="uid://b2wejh4r4j4c6" path="res://scenes/human_target.tscn" id="4_r2cck"]
+[ext_resource type="PackedScene" uid="uid://bfp4d0fnws303" path="res://scenes/help_button.tscn" id="5_eb0mi"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kh7to"]
+size = Vector2(30, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ojso8"]
+size = Vector3(20, 0.1, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_idq7q"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gotsk"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mdw8f"]
+size = Vector2(4, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3g7se"]
+size = Vector3(1, 4, 22)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cu1pf"]
+points = PackedVector3Array(-0.5, -2, -11, 0.5, -2, -11, -0.5, -2, 11, -0.5, 2, -11, 0.5, 2, -11, 0.5, -2, 11, -0.5, 2, 11, 0.5, 2, 11)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_eva48"]
+points = PackedVector3Array(-0.5, -2, -11, 0.5, -2, -11, -0.5, -2, 11, -0.5, 2, -11, 0.5, 2, -11, 0.5, -2, 11, -0.5, 2, 11, 0.5, 2, 11)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wllsp"]
+points = PackedVector3Array(-0.5, -2, -10, 0.5, -2, -10, -0.5, -2, 10, -0.5, 2, -10, 0.5, 2, -10, 0.5, -2, 10, -0.5, 2, 10, 0.5, 2, 10)
+
+[node name="ShootingRange" type="Node3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
+mesh = SubResource("PlaneMesh_kh7to")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_ojso8")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1.32118)
+mesh = SubResource("BoxMesh_idq7q")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_gotsk")
+
+[node name="XROrigin3D" parent="." instance=ExtResource("1_gfqum")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0650742, 0.05, 0.13023)
+
+[node name="Target" parent="." instance=ExtResource("2_m7cpe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47469, 4.03925, -7.30937)
+
+[node name="Pistol" parent="." instance=ExtResource("3_w0br1")]
+transform = Transform3D(0.0289708, -0.654628, -0.755396, 0.999022, 0.0442122, 0, 0.0333977, -0.754658, 0.655268, 0.560739, 1.02113, -1.19711)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2, -4)
+mesh = SubResource("PlaneMesh_mdw8f")
+
+[node name="HelpText" type="Label3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.88849, 0.0101252, 0.0329533)
+text = "-Shoot targets to earn points
+-Squeeze Grip button to pick up and hold objects
+-Squeeze Trigger button to shoot"
+horizontal_alignment = 0
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, -9)
+mesh = SubResource("BoxMesh_3g7se")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_cu1pf")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 9.20897)
+mesh = SubResource("BoxMesh_3g7se")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D7"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D7/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_cu1pf")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 9.20897)
+mesh = SubResource("BoxMesh_3g7se")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D8"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D8/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_cu1pf")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, -9)
+mesh = SubResource("BoxMesh_3g7se")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D4/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_eva48")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 2, -20)
+mesh = SubResource("BoxMesh_3g7se")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D5/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_wllsp")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 2, 2)
+mesh = SubResource("BoxMesh_3g7se")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D6/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_wllsp")
+
+[node name="HumanTarget" parent="." instance=ExtResource("4_r2cck")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.497192, -5)
+
+[node name="InteractableAreaButton" parent="." instance=ExtResource("5_eb0mi")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.47713, 0.998723, -1)
