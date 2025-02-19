@@ -1,24 +1,38 @@
-[gd_scene load_steps=15 format=3 uid="uid://b8kir2jqyt4ws"]
+[gd_scene load_steps=21 format=3 uid="uid://b8kir2jqyt4ws"]
 
 [ext_resource type="PackedScene" uid="uid://dsqntlr6t87q4" path="res://scenes/XRPlayer.tscn" id="1_gfqum"]
-[ext_resource type="PackedScene" uid="uid://bnhuv6vvqvn5s" path="res://scenes/target.tscn" id="2_m7cpe"]
+[ext_resource type="PackedScene" uid="uid://dogf6cypxkj12" path="res://scenes/reset_button.tscn" id="3_glj8t"]
 [ext_resource type="PackedScene" uid="uid://dlutry7ttvvb5" path="res://scenes/vr_pistol.tscn" id="3_w0br1"]
 [ext_resource type="PackedScene" uid="uid://b2wejh4r4j4c6" path="res://scenes/human_target.tscn" id="4_r2cck"]
 [ext_resource type="PackedScene" uid="uid://bfp4d0fnws303" path="res://scenes/help_button.tscn" id="5_eb0mi"]
+[ext_resource type="PackedScene" uid="uid://dx8ivq28088nj" path="res://scenes/vr_pistol_magazine.tscn" id="6_on8b3"]
+[ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="7_jola2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ojso8"]
+size = Vector3(30, 0.1, 30)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kh7to"]
 size = Vector2(30, 30)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ojso8"]
-size = Vector3(20, 0.1, 20)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mpkh"]
+albedo_color = Color(0.0605303, 0.0605303, 0.0605303, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_idq7q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0vhix"]
+albedo_color = Color(0.54902, 0.294118, 0, 1)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gotsk"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mdw8f"]
 size = Vector2(4, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5opjf"]
+size = Vector3(0.5, 0.1, 0.2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7hrl5"]
+points = PackedVector3Array(-0.25, -0.05, -0.1, -0.25, 0.05, -0.1, 0.25, -0.05, -0.1, -0.25, -0.05, 0.1, -0.25, 0.05, 0.1, 0.25, 0.05, -0.1, 0.25, -0.05, 0.1, 0.25, 0.05, 0.1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_3g7se"]
 size = Vector3(1, 4, 22)
@@ -34,18 +48,21 @@ points = PackedVector3Array(-0.5, -2, -10, 0.5, -2, -10, -0.5, -2, 10, -0.5, 2, 
 
 [node name="ShootingRange" type="Node3D"]
 
-[node name="Floor" type="MeshInstance3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
-mesh = SubResource("PlaneMesh_kh7to")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_ojso8")
+
+[node name="Floor" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_kh7to")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7mpkh")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1.32118)
 mesh = SubResource("BoxMesh_idq7q")
+surface_material_override/0 = SubResource("StandardMaterial3D_0vhix")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
 
@@ -55,14 +72,12 @@ shape = SubResource("ConcavePolygonShape3D_gotsk")
 [node name="XROrigin3D" parent="." instance=ExtResource("1_gfqum")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0650742, 0.05, 0.13023)
 
-[node name="Target" parent="." instance=ExtResource("2_m7cpe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47469, 4.03925, -7.30937)
-
 [node name="Pistol" parent="." instance=ExtResource("3_w0br1")]
-transform = Transform3D(0.0289708, -0.654628, -0.755396, 0.999022, 0.0442122, 0, 0.0333977, -0.754658, 0.655268, 0.560739, 1.02113, -1.19711)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.343819, 1.10796, -0.980497)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2, -4)
+visible = false
 mesh = SubResource("PlaneMesh_mdw8f")
 
 [node name="HelpText" type="Label3D" parent="MeshInstance3D"]
@@ -71,6 +86,22 @@ text = "-Shoot targets to earn points
 -Squeeze Grip button to pick up and hold objects
 -Squeeze Trigger button to shoot"
 horizontal_alignment = 0
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.0903, -1.71742)
+mesh = SubResource("BoxMesh_5opjf")
+
+[node name="HelpText" type="Label3D" parent="MeshInstance3D9"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.0510814, -0.00699377)
+text = "30.00"
+
+[node name="Timer" type="Timer" parent="MeshInstance3D9"]
+one_shot = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D9"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D9/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_7hrl5")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, -9)
@@ -127,7 +158,64 @@ mesh = SubResource("BoxMesh_3g7se")
 shape = SubResource("ConvexPolygonShape3D_wllsp")
 
 [node name="HumanTarget" parent="." instance=ExtResource("4_r2cck")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.497192, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -7)
 
-[node name="InteractableAreaButton" parent="." instance=ExtResource("5_eb0mi")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.47713, 0.998723, -1)
+[node name="HumanTarget2" parent="." instance=ExtResource("4_r2cck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -7)
+
+[node name="HumanTarget3" parent="." instance=ExtResource("4_r2cck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -10)
+
+[node name="HumanTarget4" parent="." instance=ExtResource("4_r2cck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -13)
+
+[node name="HumanTarget7" parent="." instance=ExtResource("4_r2cck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+
+[node name="HumanTarget8" parent="." instance=ExtResource("4_r2cck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+
+[node name="HumanTarget9" parent="." instance=ExtResource("4_r2cck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13)
+
+[node name="HumanTarget5" parent="." instance=ExtResource("4_r2cck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -13)
+
+[node name="HumanTarget10" parent="." instance=ExtResource("4_r2cck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -16)
+
+[node name="HumanTarget11" parent="." instance=ExtResource("4_r2cck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
+
+[node name="HumanTarget12" parent="." instance=ExtResource("4_r2cck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -16)
+
+[node name="HumanTarget6" parent="." instance=ExtResource("4_r2cck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -10)
+
+[node name="PistolMagazine" parent="." instance=ExtResource("6_on8b3")]
+transform = Transform3D(1, 0, 0, 0, 0.996029, -0.0890334, 0, 0.0890334, 0.996029, 0.524293, 1.06131, -1)
+
+[node name="PistolMagazine2" parent="." instance=ExtResource("6_on8b3")]
+transform = Transform3D(1, 0, 0, 0, 0.996029, -0.0890334, 0, 0.0890334, 0.996029, 0.632862, 1.06131, -1)
+
+[node name="PistolMagazine3" parent="." instance=ExtResource("6_on8b3")]
+transform = Transform3D(1, 0, 0, 0, 0.996029, -0.0890334, 0, 0.0890334, 0.996029, 0.749537, 1.06131, -1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.683013, 0.183013, 0, 0.258819, 0.965926, -0.707107, -0.683013, 0.183013, 0, 5, -10)
+
+[node name="StartXR" parent="." instance=ExtResource("7_jola2")]
+
+[node name="InteractableAreaButton2" parent="." instance=ExtResource("3_glj8t")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.677053, 1, -1.00675)
+
+[node name="Pistol2" parent="." instance=ExtResource("3_w0br1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.227525, 1.10196, -0.956614)
+
+[node name="HelpButton" parent="." instance=ExtResource("5_eb0mi")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.451874, 1, -1.0087)
+
+[connection signal="button_released" from="InteractableAreaButton2" to="InteractableAreaButton2" method="_reset_scene" unbinds=1]
+[connection signal="toggle_off" from="HelpButton" to="MeshInstance3D" method="hide"]
+[connection signal="toggle_on" from="HelpButton" to="MeshInstance3D" method="show"]

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Ammo" load_steps=5 format=3 uid="uid://d3mvelli8k4ht"]
+
+[ext_resource type="PackedScene" uid="uid://bcmneiqubwrxd" path="res://scenes/bullet_hole_wood.tscn" id="1_4bdgm"]
+[ext_resource type="Script" path="res://scripts/Ammo.gd" id="1_ubxm0"]
+[ext_resource type="Script" path="res://scripts/IntPair.gd" id="2_b120q"]
+
+[sub_resource type="Resource" id="Resource_geku8"]
+script = ExtResource("2_b120q")
+x = 1
+y = 1
+
+[resource]
+script = ExtResource("1_ubxm0")
+damage = 1
+impact_effect = ExtResource("1_4bdgm")
+base_item_id = "0"
+item_name = "pistol bullets"
+item_description = ""
+item_type = 3
+item_size = SubResource("Resource_geku8")
+stackable = true
+max_stack_size = 0
+item_max_health = 100
+item_grid = "0,0"
+item_weight = 1.0
+pickup_object = ""
+inventory_3d_view_path = ""

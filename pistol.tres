@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="RangedWeapon" load_steps=11 format=3 uid="uid://cy6lud6a7gbx0"]
+
+[ext_resource type="Script" path="res://scripts/Ammo.gd" id="1_53wrg"]
+[ext_resource type="AudioStream" uid="uid://fly1gnf8w0lc" path="res://sound/effects/weapons/pistol/pistol-fire-1.wav" id="2_bjpvm"]
+[ext_resource type="AudioStream" uid="uid://bk6kawjid0ph1" path="res://sound/effects/weapons/pistol/unload_mag.mp3" id="2_hmg3h"]
+[ext_resource type="Script" path="res://scripts/ranged_weapon.gd" id="2_mbp5g"]
+[ext_resource type="Script" path="res://scripts/IntPair.gd" id="3_t2s3i"]
+[ext_resource type="AudioStream" uid="uid://dd07ghbu034wv" path="res://sound/effects/weapons/pistol/load_magazine.ogg" id="3_ycnqr"]
+[ext_resource type="AudioStream" uid="uid://ckgdagctbcpna" path="res://sound/effects/weapons/pistol/pull_back_slide.ogg" id="5_8tlfh"]
+[ext_resource type="Resource" uid="uid://d3mvelli8k4ht" path="res://pistol_bullets.tres" id="6_g2xmn"]
+[ext_resource type="AudioStream" uid="uid://0xabhofs2iik" path="res://sound/effects/weapons/pistol/release_slide.ogg" id="6_jyer0"]
+
+[sub_resource type="Resource" id="Resource_c7lkr"]
+script = ExtResource("3_t2s3i")
+x = 1
+y = 1
+
+[resource]
+script = ExtResource("2_mbp5g")
+clip_size = 10
+time_between_shots = 0.0
+reload_time = 0.0
+single_reload = false
+bullet_spread_angle = 0.0
+projectiles_per_shot = 1
+recoil = 10.0
+attack_sounds = Array[AudioStream]([ExtResource("2_bjpvm")])
+slide_pull_sound = ExtResource("5_8tlfh")
+slide_release_sound = ExtResource("6_jyer0")
+load_magazine_sound = ExtResource("3_ycnqr")
+drop_magazine_sound = ExtResource("2_hmg3h")
+ammo_types = Array[ExtResource("1_53wrg")]([])
+loaded_ammo_type = ExtResource("6_g2xmn")
+loaded_ammo_count = 0
+zoomed_in_fov = 60.0
+base_item_id = "1"
+item_name = "pistol"
+item_description = ""
+item_type = 1
+item_size = SubResource("Resource_c7lkr")
+stackable = false
+max_stack_size = 0
+item_max_health = 100
+item_grid = "0,0"
+item_weight = 1.0
+pickup_object = ""
+inventory_3d_view_path = ""

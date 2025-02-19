@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxvdpondn6xin"]
+[gd_scene load_steps=4 format=3 uid="uid://cxvdpondn6xin"]
 
 [ext_resource type="Script" path="res://scripts/bullet_trail.gd" id="1_jojxc"]
+[ext_resource type="PackedScene" uid="uid://bcmneiqubwrxd" path="res://scenes/bullet_hole_wood.tscn" id="2_y44lb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n1k2i"]
 transparency = 1
@@ -8,12 +9,15 @@ shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_color = Color(1, 0.832683, 0.480626, 1)
 
-[node name="BulletTrail" type="MeshInstance3D" node_paths=PackedStringArray("timer")]
+[node name="BulletTrail" type="MeshInstance3D" node_paths=PackedStringArray("timer", "blood_impact")]
 material_override = SubResource("StandardMaterial3D_n1k2i")
 gi_mode = 0
 script = ExtResource("1_jojxc")
 timer = NodePath("Timer")
+blood_impact = NodePath("BulletHoleWood")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="BulletHoleWood" parent="." instance=ExtResource("2_y44lb")]

@@ -1,15 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://dsqntlr6t87q4"]
+[gd_scene load_steps=16 format=3 uid="uid://dsqntlr6t87q4"]
 
-[ext_resource type="PackedScene" uid="uid://hpr0v012ghsb" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_tac_glove.tscn" id="2_kq2m5"]
 [ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="2_w17sv"]
-[ext_resource type="PackedScene" uid="uid://dup2vp8v5rpi5" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_tac_glove.tscn" id="3_cbdfp"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_u851r"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_bt2oo"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="5_i30af"]
-[ext_resource type="PackedScene" uid="uid://bkv43ec6chcf3" path="res://addons/godot-xr-tools/hands/scenes/collision/collision_hand_left.tscn" id="5_l5dmp"]
 [ext_resource type="PackedScene" uid="uid://fiul51tsyoop" path="res://addons/godot-xr-tools/functions/function_teleport.tscn" id="6_8bnpp"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_qxgip"]
-[ext_resource type="PackedScene" uid="uid://c3uoohvnshach" path="res://addons/godot-xr-tools/hands/scenes/collision/collision_hand_right.tscn" id="9_h4dmq"]
+[ext_resource type="PackedScene" uid="uid://ddsj74hpt1kgb" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_physics_tac_glove.tscn" id="7_6ykkb"]
+[ext_resource type="PackedScene" uid="uid://b6xesntm4qeo5" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_physics_tac_glove.tscn" id="9_lnxbf"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="12_igmon"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumbler.gd" id="14_kb6uy"]
 
@@ -58,8 +56,6 @@ tracker = &"left_hand"
 
 [node name="Marker3D" type="Marker3D" parent="LeftHand"]
 
-[node name="LeftHand" parent="LeftHand" instance=ExtResource("2_kq2m5")]
-
 [node name="MovementDirect" parent="LeftHand" instance=ExtResource("3_u851r")]
 strafe = true
 
@@ -67,9 +63,7 @@ strafe = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0516316, 0.0757655)
 grab_distance = 0.1
 grab_collision_mask = 328708
-ranged_distance = 1.0
-
-[node name="CollisionHandLeft" parent="LeftHand" instance=ExtResource("5_l5dmp")]
+ranged_distance = 3.0
 
 [node name="FunctionTeleport" parent="LeftHand" instance=ExtResource("6_8bnpp")]
 enabled = false
@@ -79,13 +73,13 @@ script = ExtResource("14_kb6uy")
 event = SubResource("Resource_e4211")
 target = NodePath("..")
 
+[node name="LeftPhysicsHand" parent="LeftHand" instance=ExtResource("7_6ykkb")]
+
 [node name="RightHand" type="XRController3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
 
 [node name="Marker3D" type="Marker3D" parent="RightHand"]
-
-[node name="RightHand" parent="RightHand" instance=ExtResource("3_cbdfp")]
 
 [node name="MovementTurn" parent="RightHand" instance=ExtResource("5_i30af")]
 turn_mode = 1
@@ -95,14 +89,14 @@ step_turn_angle = 45.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0516316, 0.0757655)
 grab_distance = 0.1
 grab_collision_mask = 328708
-ranged_distance = 1.0
-
-[node name="CollisionHandRight" parent="RightHand" instance=ExtResource("9_h4dmq")]
+ranged_distance = 3.0
 
 [node name="XRToolsRumbler" type="Node" parent="RightHand" node_paths=PackedStringArray("target")]
 script = ExtResource("14_kb6uy")
 event = SubResource("Resource_6uq6k")
 target = NodePath("..")
+
+[node name="RightPhysicsHand" parent="RightHand" instance=ExtResource("9_lnxbf")]
 
 [node name="PlayerBody" parent="." instance=ExtResource("6_qxgip")]
 

@@ -12,7 +12,7 @@ enum WeaponState {
 @export var casing_spawn_point: Node3D
 @export var slide_pickup: XRToolsPickable
 @export var slide_origin: Node3D
-@export var max_pullback_slide: float
+@export var max_pullback_slide: float = 0.021
 @export var bone_name: String
 @export var audio_player: AudioStreamPlayer3D
 @export var polyphonic_stream: AudioStreamPolyphonic
@@ -60,13 +60,18 @@ func _process(delta: float) -> void:
 			animation_player.play("EjectMagazine")
 			play_sound(ranged_weapon.drop_magazine_sound)
 	
+	if round_chambered:
+		$Label3D.modulate = Color.GREEN
+	else:
+		$Label3D.modulate = Color.WHITE
+	
 	if slide_pickup.is_picked_up():
 		var slide_pos = slide_pickup.global_transform.origin
 		var slide_pickup_local = slide_pos * slide_origin.global_transform
 		#print(slide_pickup_local)
 		
-		var pullback = max(slide_start_pos.z, clampf(slide_pickup_local.z, slide_start_pos.z, max_pullback_slide + slide_start_pos.z))
-		#print(pullback)
+		var pullback = max(slide_start_pos.z, clampf(slide_pickup_local.z, slide_start_pos.z, (max_pullback_slide) + slide_start_pos.z))
+		print(pullback)
 		if pullback < max_pullback_slide + slide_start_pos.z:
 			var bone_pose = skeleton.get_bone_rest(bone_id).origin
 			bone_pose.y = bone_pose.y - pullback + slide_start_pos.z
@@ -77,18 +82,20 @@ func _process(delta: float) -> void:
 		else:
 			if prev_slide_pullback != pullback:
 				var round_count = 0
-				if magazine:
-					magazine.use_ammo()
-					round_count += magazine.ammo_count
 				if round_chambered:
 					round_chambered = false
 					loaded_bullet.hide()
 					eject_casing()
+				if magazine:
+					#magazine.use_ammo()
+					round_count += magazine.ammo_count
 				$Label3D.text = str(round_count)
 				play_sound(ranged_weapon.slide_pull_sound)
+			if slide_pickup_local.z > (max_pullback_slide * 5) + slide_start_pos.z:
+				slide_pickup.drop()
 			#slide_pickup.drop()
 		prev_slide_pullback = pullback
-	elif magazine and magazine.has_bullets():
+	elif !animation_player.is_playing() and magazine and magazine.has_bullets():
 		if skeleton.get_bone_pose_position(bone_id) != skeleton.get_bone_rest(bone_id).origin:
 			var bone_pose = skeleton.get_bone_pose_position(bone_id)
 			bone_pose.y = lerp(bone_pose.y, skeleton.get_bone_rest(bone_id).origin.y, 0.5)
@@ -96,9 +103,14 @@ func _process(delta: float) -> void:
 			skeleton.set_bone_pose_position(bone_id, bone_pose)
 			if skeleton.get_bone_pose_position(bone_id) == skeleton.get_bone_rest(bone_id).origin:
 				play_sound(ranged_weapon.slide_release_sound)
+				var round_count = 0
 				if !round_chambered && magazine && magazine.has_bullets():
 					round_chambered = true
 					loaded_bullet.show()
+				if magazine:
+					magazine.use_ammo()
+					round_count += magazine.ammo_count
+				$Label3D.text = str(round_count)
 
 func _on_magazine_loaded():
 	pass
@@ -106,6 +118,8 @@ func _on_magazine_loaded():
 func _on_magazine_ejected():
 	magazine_snap_zone.drop_object()
 	magazine.enable_collision()
+	if magazine.ammo_count > 0:
+		magazine.enabled = true
 	magazine = null
 	var round_count: int = 0
 	if round_chambered:
@@ -113,8 +127,10 @@ func _on_magazine_ejected():
 	$Label3D.text = str(round_count)
 
 func _on_MagazineSnapZone_has_picked_up(object):
+	print(object)
 	magazine = object
 	magazine.disable_collision()
+	magazine.enabled = false
 	if round_chambered:
 		$Label3D.text = str(magazine.ammo_count + 1)
 	else:
@@ -150,12 +166,15 @@ func _on_Slide_dropped(pickable):
 func eject_casing():
 	if casing_scene:
 		var bullet_casing: RigidBody3D = casing_scene.instantiate()
-		casing_spawn_point.add_child(bullet_casing)
-		bullet_casing.linear_velocity = bullet_casing.global_transform.basis.y * 2
-		bullet_casing.reparent(null)
+		bullet_casing.set_as_top_level(true)
+		bullet_casing.global_transform = casing_spawn_point.global_transform
+		add_child(bullet_casing)
+		bullet_casing.linear_velocity = bullet_casing.global_transform.basis.y * 2 + bullet_casing.global_transform.basis.x * 0.5
 
 func fire(pickable):
 	if round_chambered:
+		if slide_pickup.is_picked_up():
+			slide_pickup.drop()
 		if !animation_player.is_playing():
 			round_chambered = false
 			loaded_bullet.hide()
@@ -165,11 +184,10 @@ func fire(pickable):
 			#magazine.use_ammo()
 			var bullets_count = 0
 			if magazine:
-				magazine.use_ammo()
 				if magazine.ammo_count > 0:
+					magazine.use_ammo()
+					bullets_count = magazine.ammo_count
 					round_chambered = true
-					loaded_bullet.show()
-				bullets_count = magazine.ammo_count
 			if round_chambered:
 				bullets_count += 1
 			$Label3D.text = str(bullets_count)
@@ -209,14 +227,14 @@ func hitscan_raycast() -> int:
 		bullet_trail_spawn.draw(trail_spawn_point.global_position, collision.position)
 		if collision is RigidBody3D:
 			collision["collider"].apply_impulse(query.to, collision.position)
-		#if collision["collider"].has_method("damage"):
+		if collision["collider"].has_method("damage"):
 			#intersection["collider"].player = self
-			#var ret = collision["collider"].damage(loaded_ammo_type.damage, connected_player)
+			var ret = collision["collider"].damage(ranged_weapon.loaded_ammo_type.damage)
 			#if (ret == 1 || ret == 2) && collision["collider"].attached_enemy.npc_template.blood_impact_effect_path != "":
 				#var impact_effect: ImpactEffect = load(collision["collider"].attached_enemy.npc_template.blood_impact_effect_path).instantiate()
 				#get_tree().root.add_child(impact_effect)
 				#impact_effect.spawn(collision.position, collision.normal)
-			#bullet_trail_spawn.draw_impact(true, collision.position, collision.normal)
+		bullet_trail_spawn.draw_impact(true, collision.position, collision.normal)
 		#else:
 			#bullet_trail_spawn.draw_impact(false, collision.position, collision.normal)
 			#if generic_impact_effect != "":

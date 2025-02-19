@@ -1,0 +1,97 @@
+[gd_scene load_steps=16 format=3 uid="uid://bcmneiqubwrxd"]
+
+[ext_resource type="Script" path="res://scripts/impact_effect.gd" id="1_3nlb2"]
+[ext_resource type="AudioStream" uid="uid://bjh1enfvkgiq3" path="res://sound/effects/impact/wood_impact_1.ogg" id="2_a6sxt"]
+[ext_resource type="Texture2D" uid="uid://b2lfambtfyt7y" path="res://textures/smoke_01.png" id="2_e510j"]
+[ext_resource type="AudioStream" uid="uid://2pk7ww1qyxun" path="res://sound/effects/impact/wood_impact_2.ogg" id="3_3lsbo"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wofdr"]
+load_path = "res://.godot/imported/WFXM_T_BulletHoles Wood.tga-425347f010887546c63cefb40de04c2e.s3tc.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wn0it"]
+atlas = SubResource("CompressedTexture2D_wofdr")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hb1a"]
+atlas = SubResource("CompressedTexture2D_wofdr")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hx0xh"]
+atlas = SubResource("CompressedTexture2D_wofdr")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="Curve" id="Curve_56jbe"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7pbx0"]
+curve = SubResource("Curve_56jbe")
+
+[sub_resource type="Curve" id="Curve_p1wjn"]
+_data = [Vector2(0, 0.54945), 0.0, 0.0, 0, 0, Vector2(0.312925, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2t8mb"]
+curve = SubResource("Curve_p1wjn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dktl5"]
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_2t8mb")
+alpha_curve = SubResource("CurveTexture_7pbx0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w4mip"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_e510j")
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8jysg"]
+material = SubResource("StandardMaterial3D_w4mip")
+size = Vector2(0.5, 0.5)
+orientation = 2
+
+[node name="BulletHoleWood" type="Node3D" node_paths=PackedStringArray("impact_particles", "impact_sprites")]
+script = ExtResource("1_3nlb2")
+impact_sounds = Array[AudioStream]([ExtResource("2_a6sxt"), ExtResource("3_3lsbo")])
+impact_particles = [NodePath("GPUParticles3D")]
+impact_sprites = [NodePath("Sprite3D"), NodePath("Sprite3D2"), NodePath("Sprite3D3"), NodePath("Sprite3D4")]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+visible = false
+pixel_size = 0.002
+texture = SubResource("AtlasTexture_wn0it")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+visible = false
+pixel_size = 0.002
+texture = SubResource("AtlasTexture_4hb1a")
+
+[node name="Sprite3D3" type="Sprite3D" parent="."]
+visible = false
+pixel_size = 0.002
+texture = SubResource("AtlasTexture_hx0xh")
+
+[node name="Sprite3D4" type="Sprite3D" parent="."]
+visible = false
+pixel_size = 0.002
+texture = SubResource("AtlasTexture_hx0xh")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 3
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_dktl5")
+draw_pass_1 = SubResource("PlaneMesh_8jysg")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]

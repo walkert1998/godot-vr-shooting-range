@@ -1,21 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfp4d0fnws303"]
+[gd_scene load_steps=6 format=3 uid="uid://dogf6cypxkj12"]
 
-[ext_resource type="PackedScene" uid="uid://cme66uldrjl2i" path="res://addons/godot-xr-tools/interactables/interactable_area_button.tscn" id="1_hsu7h"]
-[ext_resource type="Script" path="res://scripts/toggle_vr_button.gd" id="2_tsasj"]
+[ext_resource type="PackedScene" uid="uid://cme66uldrjl2i" path="res://addons/godot-xr-tools/interactables/interactable_area_button.tscn" id="1_qm38p"]
+[ext_resource type="Script" path="res://scripts/reset_button.gd" id="2_1w114"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rqxqm"]
 points = PackedVector3Array(0.1, 0.05, 0.05, 0.1, 0.05, -0.05, -0.1, 0.05, 0.05, 0.1, -0.05, 0.05, 0.1, -0.05, -0.05, -0.1, 0.05, -0.05, -0.1, -0.05, 0.05, -0.1, -0.05, -0.05)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1au8b"]
-albedo_color = Color(0, 1, 0, 1)
+albedo_color = Color(1, 0, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_v1o5v"]
+[sub_resource type="BoxMesh" id="BoxMesh_a2si1"]
 material = SubResource("StandardMaterial3D_1au8b")
 size = Vector3(0.2, 0.1, 0.1)
 
-[node name="HelpButton" instance=ExtResource("1_hsu7h")]
-script = ExtResource("2_tsasj")
-toggled = false
+[node name="InteractableAreaButton" instance=ExtResource("1_qm38p")]
+script = ExtResource("2_1w114")
 button = NodePath("MeshInstance3D")
 displacement = Vector3(0, 0, -0.033)
 
@@ -23,11 +22,9 @@ displacement = Vector3(0, 0, -0.033)
 shape = SubResource("ConvexPolygonShape3D_rqxqm")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
-mesh = SubResource("BoxMesh_v1o5v")
+mesh = SubResource("BoxMesh_a2si1")
 
 [node name="Label3D" type="Label3D" parent="MeshInstance3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0523368)
 pixel_size = 0.002
-text = "HELP"
-
-[connection signal="button_pressed" from="." to="." method="toggle"]
+text = "RESET"

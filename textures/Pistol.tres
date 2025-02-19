@@ -1,14 +1,15 @@
-[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://suo73a34ttlk"]
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://b414wllaef875"]
 
-[ext_resource type="Texture2D" uid="uid://cgr47y2p8cx8n" path="res://Textures/pistol-albedo.png" id="1_3o3hd"]
-[ext_resource type="Texture2D" uid="uid://vjt8x2gfajut" path="res://Textures/pistol-emission.png" id="2_jb8gn"]
-[ext_resource type="Texture2D" uid="uid://cfm16abge86ei" path="res://Textures/pistol-normal.png" id="3_d8asj"]
+[ext_resource type="Texture2D" uid="uid://cbpppopg5ga6p" path="res://textures/pistol-albedo.png" id="1_3o3hd"]
+[ext_resource type="Texture2D" uid="uid://bx6p8fkxrcefp" path="res://textures/pistol-emission.png" id="2_jb8gn"]
+[ext_resource type="Texture2D" uid="uid://dcakc0538ai0s" path="res://textures/pistol-normal.png" id="3_d8asj"]
 
 [resource]
 cull_mode = 2
+vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_3o3hd")
 emission_enabled = true
-emission = Color(1, 1, 1, 1)
+emission = Color(1, 0, 0, 1)
 emission_operator = 1
 emission_texture = ExtResource("2_jb8gn")
 normal_enabled = true

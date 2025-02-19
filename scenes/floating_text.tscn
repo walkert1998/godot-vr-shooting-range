@@ -5,4 +5,5 @@
 [node name="Label3D" type="Label3D" parent="."]
 pixel_size = 0.01
 billboard = 1
+no_depth_test = true
 text = "+100"
