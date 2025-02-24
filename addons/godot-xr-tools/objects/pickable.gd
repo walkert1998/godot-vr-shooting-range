@@ -421,6 +421,7 @@ func _get_grab_point(grabber : Node3D, current : XRToolsGrabPoint) -> XRToolsGra
 	var point : XRToolsGrabPoint = null
 	for p in _grab_points:
 		var f := p.can_grab(grabber, current)
+		print (str(p) + " " + str(f))
 		if f > fitness:
 			fitness = f
 			point = p

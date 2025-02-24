@@ -1,5 +1,7 @@
 extends Node
 
+signal on_hit
+
 @export var max_points: int = 500
 @export var hit_sounds: Array[AudioStream]
 @export var audio_player: AudioStreamPlayer3D
@@ -11,7 +13,9 @@ func damage(amount: int) -> int:
 	#audio_player.play()
 	#hide()
 	#hide()
+	emit_signal("on_hit")
 	animation_player.play("Hide")
+	audio_player.play()
 	return 1
 
 func popup():

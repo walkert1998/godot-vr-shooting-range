@@ -34,6 +34,9 @@ var slide_start_pos: Vector3
 var weapon_state = WeaponState.LOADED
 var prev_slide_pullback: float = 0.0
 @export var round_chambered: bool = false
+var current_time: float = 2
+var target_rot: Vector3
+var target_pos: Vector3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -51,6 +54,31 @@ func _ready() -> void:
 	audio_streams = []
 	#pass
 
+func _physics_process(delta):
+	if current_time < 1 and is_picked_up():
+		current_time += delta
+		position = lerp(position, target_pos, 10 * delta)
+		var new_rot_x = lerp(rotation.x, target_rot.x, 10 * delta)
+		rotate_object_local(Vector3.RIGHT, target_rot.x)
+		if magazine:
+			magazine.position = lerp(magazine.position, target_pos, 10 * delta)
+			magazine.rotate_object_local(Vector3.RIGHT, target_rot.x)
+		#rotation.z = lerp(rotation.z, target_rot.z, 10 * delta)
+		#rotation.x = lerp(rotation.x, target_rot.x, 10 * delta)
+		#print(get_picked_up_by_controller().rotation.x)
+		#get_picked_up_by_controller().find_child("*PhysicsHand").rotation.x = lerp(get_picked_up_by_controller().rotation.x, target_rot.x, 10 * delta)
+		get_picked_up_by_controller().find_child("*PhysicsHand").position = lerp(get_picked_up_by_controller().find_child("*PhysicsHand").position, target_pos, 10 * delta)
+		get_picked_up_by_controller().find_child("*PhysicsHand").rotate_object_local(Vector3.RIGHT, target_rot.x)
+		#print(get_picked_up_by_controller().rotation.x)
+		
+		#target_rot.z = ranged_weapon.recoil_rotation_z.sample(current_time)
+		target_rot.x = ranged_weapon.recoil_rotation_x.sample(current_time)
+		#var rot = ranged_weapon.recoil_rotation_x.sample(current_time) * -transform.basis.z
+		#target_rot = rot + rotation
+		var vec = ranged_weapon.recoil_position_z.sample(current_time) * -transform.basis.z
+		target_pos = vec + position
+		$Label3D2.text = str(rotation)
+		#$Label3D3.text = str(target_pos)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -71,7 +99,7 @@ func _process(delta: float) -> void:
 		#print(slide_pickup_local)
 		
 		var pullback = max(slide_start_pos.z, clampf(slide_pickup_local.z, slide_start_pos.z, (max_pullback_slide) + slide_start_pos.z))
-		print(pullback)
+		#print(pullback)
 		if pullback < max_pullback_slide + slide_start_pos.z:
 			var bone_pose = skeleton.get_bone_rest(bone_id).origin
 			bone_pose.y = bone_pose.y - pullback + slide_start_pos.z
@@ -176,9 +204,13 @@ func fire(pickable):
 		if slide_pickup.is_picked_up():
 			slide_pickup.drop()
 		if !animation_player.is_playing():
+			apply_recoil()
 			round_chambered = false
 			loaded_bullet.hide()
-			play_sound(ranged_weapon.attack_sounds[randi_range(0, ranged_weapon.attack_sounds.size() - 1)])
+			if magazine == null or (magazine and magazine.ammo_count <= (magazine.max_ammo_count / 3)):
+				play_sound(ranged_weapon.low_ammo_attack_sounds[randi_range(0, ranged_weapon.low_ammo_attack_sounds.size() - 1)])
+			else:
+				play_sound(ranged_weapon.attack_sounds[randi_range(0, ranged_weapon.attack_sounds.size() - 1)])
 			animation_player.play("Fire")
 			eject_casing()
 			#magazine.use_ammo()
@@ -188,6 +220,7 @@ func fire(pickable):
 					magazine.use_ammo()
 					bullets_count = magazine.ammo_count
 					round_chambered = true
+					loaded_bullet.show()
 			if round_chambered:
 				bullets_count += 1
 			$Label3D.text = str(bullets_count)
@@ -234,7 +267,7 @@ func hitscan_raycast() -> int:
 				#var impact_effect: ImpactEffect = load(collision["collider"].attached_enemy.npc_template.blood_impact_effect_path).instantiate()
 				#get_tree().root.add_child(impact_effect)
 				#impact_effect.spawn(collision.position, collision.normal)
-		bullet_trail_spawn.draw_impact(true, collision.position, collision.normal)
+		bullet_trail_spawn.draw_impact(true, collision.position, collision.normal, collision["collider"])
 		#else:
 			#bullet_trail_spawn.draw_impact(false, collision.position, collision.normal)
 			#if generic_impact_effect != "":
@@ -251,3 +284,12 @@ func hitscan_raycast() -> int:
 		get_tree().root.add_child(bullet_trail_spawn)
 		bullet_trail_spawn.draw(trail_spawn_point.global_position, query.to)
 		return 1
+
+
+func apply_recoil():
+	#target_rot.z = ranged_weapon.recoil_rotation_z.sample(0)
+	target_rot.x = ranged_weapon.recoil_rotation_x.sample(0)
+	#target_pos.z = ranged_weapon.recoil_position_z.sample(0)
+	current_time = 0
+	var vec = ranged_weapon.recoil_position_z.sample(current_time) * -transform.basis.z
+	target_pos = vec + position

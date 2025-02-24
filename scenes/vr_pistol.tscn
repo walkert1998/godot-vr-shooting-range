@@ -19,13 +19,12 @@
 [ext_resource type="Material" uid="uid://dsqrvpgr7w41g" path="res://textures/pistol_bullet_1.tres" id="11_f3ihp"]
 [ext_resource type="Script" path="res://scripts/firearm_trigger.gd" id="12_yuhj1"]
 [ext_resource type="Animation" uid="uid://dkjsnihi81b7p" path="res://addons/godot-xr-tools/hands/animations/left/Pinch Large.res" id="13_3pefy"]
-[ext_resource type="Animation" uid="uid://dqa0h82y3qn1t" path="res://addons/godot-xr-tools/hands/animations/left/Grip 1.res" id="14_bo0ya"]
 [ext_resource type="Animation" uid="uid://dd67rufxwj2u" path="res://addons/godot-xr-tools/hands/animations/left/Grip 3.res" id="15_qhmjp"]
-[ext_resource type="Animation" uid="uid://cuwwpxi44vwpm" path="res://addons/godot-xr-tools/hands/animations/right/Pinch Large.res" id="16_nds3m"]
 [ext_resource type="PackedScene" uid="uid://ca3daqmpo0tua" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_redirect.tscn" id="17_1ig8v"]
 [ext_resource type="Script" path="res://scripts/ammo_colour_indicator.gd" id="21_t7o3g"]
 [ext_resource type="PackedScene" uid="uid://da2qgxxwwitl6" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" id="22_n0ok4"]
 [ext_resource type="Script" path="res://scripts/laser_sight.gd" id="26_hheac"]
+[ext_resource type="Animation" uid="uid://di384xtde8ydf" path="res://addons/godot-xr-tools/hands/animations/left/Grip 2.res" id="27_fp5h8"]
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_lpq08"]
 
@@ -171,7 +170,16 @@ blend_shape_mode = 0
 
 [sub_resource type="Resource" id="Resource_gaw7q"]
 script = ExtResource("5_bokn0")
-closed_pose = ExtResource("14_bo0ya")
+closed_pose = ExtResource("15_qhmjp")
+
+[sub_resource type="Resource" id="Resource_g52ch"]
+script = ExtResource("5_bokn0")
+open_pose = ExtResource("13_3pefy")
+closed_pose = ExtResource("13_3pefy")
+
+[sub_resource type="Resource" id="Resource_btq47"]
+script = ExtResource("5_bokn0")
+closed_pose = ExtResource("15_qhmjp")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3uvgu"]
 
@@ -210,20 +218,13 @@ shadow_mesh = SubResource("ArrayMesh_3ssjo")
 [sub_resource type="Animation" id="Animation_3n8fu"]
 resource_name = "Armature|Empty"
 length = 0.001
-tracks/0/type = "rotation_3d"
+tracks/0/type = "position_3d"
 tracks/0/imported = true
 tracks/0/enabled = true
-tracks/0/path = NodePath("Armature")
+tracks/0/path = NodePath("Armature/Skeleton3D:Slide")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.5, 0.5, -0.5, 0.5)
-tracks/1/type = "position_3d"
-tracks/1/imported = true
-tracks/1/enabled = true
-tracks/1/path = NodePath("Armature/Skeleton3D:Slide")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, -0.0212841, -0.02524, 0)
+tracks/0/keys = PackedFloat32Array(0, 1, -0.0212841, -0.02524, 0)
 
 [sub_resource type="Animation" id="Animation_lfley"]
 resource_name = "Armature|EmptyFire"
@@ -339,7 +340,7 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("Armature/Skeleton3D:Slide")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.022, -0.009, 0, 0.0333334, 1, -0.022, -0.025, 0, 0.05, 1, -0.022, -0.025, 0, 0.1, 1, -0.022, -0.009, 0)
+tracks/0/keys = PackedFloat32Array(0, 1, -0.021, -0.009, 0, 0.0333, 1, -0.021, -0.025, 0, 0.05, 1, -0.021, -0.025, 0, 0.1, 1, -0.021, -0.009, 0)
 
 [sub_resource type="Animation" id="Animation_tqh3n"]
 resource_name = "LoadMagazine"
@@ -431,28 +432,17 @@ _data = {
 
 [sub_resource type="Resource" id="Resource_uusdb"]
 script = ExtResource("5_bokn0")
-open_pose = ExtResource("4_f1ywk")
 closed_pose = ExtResource("4_f1ywk")
 
 [sub_resource type="Resource" id="Resource_dbmvd"]
 script = ExtResource("5_bokn0")
 closed_pose = ExtResource("7_qkrvq")
 
-[sub_resource type="Resource" id="Resource_g52ch"]
-script = ExtResource("5_bokn0")
-open_pose = ExtResource("13_3pefy")
-closed_pose = ExtResource("13_3pefy")
-
-[sub_resource type="Resource" id="Resource_btq47"]
-script = ExtResource("5_bokn0")
-closed_pose = ExtResource("15_qhmjp")
-
-[sub_resource type="Resource" id="Resource_mln3t"]
-script = ExtResource("5_bokn0")
-closed_pose = ExtResource("16_nds3m")
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_p606m"]
 radius = 0.045
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dlxe4"]
+size = Vector3(0.1, 0.08, 0.154728)
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_fgyme"]
 
@@ -492,6 +482,11 @@ height = 0.01
 radial_segments = 16
 rings = 8
 
+[sub_resource type="Resource" id="Resource_rnfge"]
+script = ExtResource("5_bokn0")
+open_pose = ExtResource("27_fp5h8")
+closed_pose = ExtResource("27_fp5h8")
+
 [node name="Pistol" node_paths=PackedStringArray("magazine_snap_zone", "animation_player", "casing_spawn_point", "slide_pickup", "slide_origin", "audio_player", "trail_spawn_point", "loaded_bullet", "skeleton") instance=ExtResource("1_nxxv3")]
 continuous_cd = true
 script = ExtResource("2_h7o8y")
@@ -513,6 +508,7 @@ loaded_bullet = NodePath("LoadedBullet")
 collision_layers = 7
 skeleton = NodePath("pistol-with-mods-vr/Armature/Skeleton3D")
 round_chambered = false
+second_hand_grab = 2
 
 [node name="CollisionShape3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0204746, -0.0426328)
@@ -550,7 +546,7 @@ bones/3/name = "Slide"
 bones/3/parent = 0
 bones/3/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0212841, -0.00934509, 0)
 bones/3/enabled = true
-bones/3/position = Vector3(-0.0212841, -0.02524, 0)
+bones/3/position = Vector3(-0.021, -0.009, 0)
 bones/3/rotation = Quaternion(0, 0, 0, 1)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "Slide_end"
@@ -589,14 +585,34 @@ mesh = SubResource("ArrayMesh_42wk6")
 skin = SubResource("Skin_qtso5")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="pistol-with-mods-vr/Armature/Skeleton3D" index="5"]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.0212246, 0, -0.0497861)
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.0209405, 0, -0.0335461)
 bone_name = "Slide"
 bone_idx = 3
 
-[node name="SlideGrabPointHandLeft" parent="pistol-with-mods-vr/Armature/Skeleton3D/BoneAttachment3D" index="0" instance=ExtResource("3_d7wka")]
+[node name="SlideGrabPointHandLeftRear1" parent="pistol-with-mods-vr/Armature/Skeleton3D/BoneAttachment3D" index="0" instance=ExtResource("3_d7wka")]
 transform = Transform3D(0.362292, 0.118685, 0.09249, 0.111445, -0.373671, 0.0429597, 0.101095, -0.0133989, -0.378807, -0.000614833, -0.0183457, 0.0315991)
 mode = 1
 hand_pose = SubResource("Resource_gaw7q")
+
+[node name="SlideGrabPointHandLeftRear2" parent="pistol-with-mods-vr/Armature/Skeleton3D/BoneAttachment3D" index="1" instance=ExtResource("3_d7wka")]
+transform = Transform3D(0.254559, -0.298325, -0.00985748, 0.143669, 0.133814, -0.339629, 0.261637, 0.216774, 0.196086, -0.00985482, 0.0348344, -0.0111257)
+mode = 1
+hand_pose = SubResource("Resource_g52ch")
+
+[node name="BoneAttachment3D2" type="BoneAttachment3D" parent="pistol-with-mods-vr/Armature/Skeleton3D" index="6"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.0209405, 0, -0.0335461)
+bone_name = "Slide"
+bone_idx = 3
+
+[node name="SlideGrabPointHandLeftFront1" parent="pistol-with-mods-vr/Armature/Skeleton3D/BoneAttachment3D2" index="0" instance=ExtResource("3_d7wka")]
+transform = Transform3D(0.382667, 0.0799782, 0.0326194, 0.0727415, -0.37829, 0.0741629, 0.0465747, -0.0662942, -0.383837, 0.00317802, 0.0424528, 0.0246155)
+mode = 1
+hand_pose = SubResource("Resource_btq47")
+
+[node name="SlideGrabPointHandLeftFront2" parent="pistol-with-mods-vr/Armature/Skeleton3D/BoneAttachment3D2" index="1" instance=ExtResource("3_d7wka")]
+transform = Transform3D(0.290292, -0.225707, -0.136682, 0.0442025, 0.241932, -0.30563, 0.260138, 0.210761, 0.204458, 0.000392058, 0.109473, -0.0111257)
+mode = 1
+hand_pose = SubResource("Resource_g52ch")
 
 [node name="Magazine" type="MeshInstance3D" parent="pistol-with-mods-vr" index="1"]
 transform = Transform3D(34.6567, 0, 0, 0, -3.78662e-06, 8.02381, 0, -31.7644, -9.56513e-07, -0.172612, -0.74177, 0)
@@ -632,28 +648,9 @@ surface_material_override/0 = ExtResource("11_f3ihp")
 script = ExtResource("12_yuhj1")
 mesh_trigger = NodePath("../pistol-with-mods-vr/Armature/Skeleton3D/Trigger2")
 value = 0.25
-handle_grabpoints = [NodePath("../pistol-with-mods-vr/Armature/Skeleton3D/BoneAttachment3D/SlideGrabPointHandLeft")]
+handle_grabpoints = [NodePath("../pistol-with-mods-vr/Armature/Skeleton3D/BoneAttachment3D/SlideGrabPointHandLeftRear1")]
 
-[node name="GrabPointHandLeft2" parent="." index="7" instance=ExtResource("3_d7wka")]
-transform = Transform3D(0.666941, 0.55258, 0.499845, -0.648897, 0.760462, 0.0251278, -0.366227, -0.341106, 0.865751, -0.0283605, 0.0585709, -0.0147845)
-mode = 2
-hand_pose = SubResource("Resource_g52ch")
-
-[node name="GrabPointHandLeft4" parent="." index="8" instance=ExtResource("3_d7wka")]
-transform = Transform3D(0.663119, 0.537252, 0.521185, -0.739985, 0.575351, 0.348417, -0.112677, -0.61671, 0.779084, -0.0283605, 0.0324505, -0.205047)
-mode = 2
-hand_pose = SubResource("Resource_g52ch")
-
-[node name="GrabPointHandLeft5" parent="." index="9" instance=ExtResource("3_d7wka")]
-transform = Transform3D(0.118724, -0.168991, -0.978441, -0.97546, -0.203873, -0.0831505, -0.185426, 0.964302, -0.189049, 0.0627476, 0.0253488, -0.0342046)
-mode = 2
-hand_pose = SubResource("Resource_btq47")
-
-[node name="GrabPointHandRight2" parent="." index="10" instance=ExtResource("6_40tpi")]
-transform = Transform3D(0.650597, -0.571728, -0.499851, 0.649254, 0.760179, -0.0244322, 0.393945, -0.308635, 0.865767, 0.028, 0.059, -0.015)
-hand_pose = SubResource("Resource_mln3t")
-
-[node name="SlideOrigin" type="Node3D" parent="." index="11"]
+[node name="SlideOrigin" type="Node3D" parent="." index="7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0345147, 0.0529266)
 
 [node name="SlidePickup" type="RigidBody3D" parent="SlideOrigin" index="0"]
@@ -667,41 +664,72 @@ picked_up_layer = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00107422)
 shape = SubResource("SphereShape3D_p606m")
 
-[node name="GrabPointRedirect" parent="SlideOrigin/SlidePickup" index="1" node_paths=PackedStringArray("target") instance=ExtResource("17_1ig8v")]
-target = NodePath("../../../pistol-with-mods-vr/Armature/Skeleton3D/BoneAttachment3D/SlideGrabPointHandLeft")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SlideOrigin/SlidePickup" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.153374)
+shape = SubResource("BoxShape3D_dlxe4")
 
-[node name="MagazineSnapZone" parent="." index="12" instance=ExtResource("7_d8ft8")]
+[node name="GrabPointRedirectRear1" parent="SlideOrigin/SlidePickup" index="2" node_paths=PackedStringArray("target") instance=ExtResource("17_1ig8v")]
+transform = Transform3D(0.923518, 0.302538, 0.235764, 0.284084, -0.952525, 0.109508, 0.257701, -0.0341557, -0.965621, 0, 0, 0)
+target = NodePath("../../../pistol-with-mods-vr/Armature/Skeleton3D/BoneAttachment3D/SlideGrabPointHandLeftRear1")
+
+[node name="GrabPointRedirectRear2" parent="SlideOrigin/SlidePickup" index="3" node_paths=PackedStringArray("target") instance=ExtResource("17_1ig8v")]
+transform = Transform3D(0.648897, -0.760461, -0.0251278, 0.366227, 0.341106, -0.865751, 0.666941, 0.552581, 0.499844, 0, 0, 0)
+target = NodePath("../../../pistol-with-mods-vr/Armature/Skeleton3D/BoneAttachment3D/SlideGrabPointHandLeftRear2")
+
+[node name="GrabPointRedirectFront1" parent="SlideOrigin/SlidePickup" index="4" node_paths=PackedStringArray("target") instance=ExtResource("17_1ig8v")]
+transform = Transform3D(0.97546, 0.203873, 0.0831505, 0.185426, -0.964302, 0.189049, 0.118724, -0.168991, -0.978441, 0, 0, -0.166603)
+target = NodePath("../../../pistol-with-mods-vr/Armature/Skeleton3D/BoneAttachment3D2/SlideGrabPointHandLeftFront1")
+
+[node name="GrabPointRedirectFront2" parent="SlideOrigin/SlidePickup" index="5" node_paths=PackedStringArray("target") instance=ExtResource("17_1ig8v")]
+transform = Transform3D(0.739985, -0.575351, -0.348416, 0.112677, 0.61671, -0.779084, 0.663119, 0.537252, 0.521185, 0, 0, -0.166603)
+target = NodePath("../../../pistol-with-mods-vr/Armature/Skeleton3D/BoneAttachment3D2/SlideGrabPointHandLeftFront2")
+
+[node name="MagazineSnapZone" parent="." index="8" instance=ExtResource("7_d8ft8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.996e-16, -0.0400965, 0.042304)
 stash_sound = ExtResource("9_bgb8l")
 grab_distance = 0.06
 snap_mode = 1
 snap_require = "Magazine"
 
-[node name="HighlightRing" parent="." index="13" instance=ExtResource("22_n0ok4")]
+[node name="HighlightRing" parent="." index="9" instance=ExtResource("22_n0ok4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0376747, 0.0462449)
 
-[node name="CasingSpawnPoint" type="Node3D" parent="." index="14"]
+[node name="CasingSpawnPoint" type="Node3D" parent="." index="10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0336364, 0.0341568)
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="15"]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="11"]
 stream = SubResource("AudioStreamPolyphonic_fgyme")
 
-[node name="AmmoColourIndicator" type="Node" parent="." index="16" node_paths=PackedStringArray("mesh")]
+[node name="AmmoColourIndicator" type="Node" parent="." index="12" node_paths=PackedStringArray("mesh")]
 script = ExtResource("21_t7o3g")
 mesh = NodePath("../pistol-with-mods-vr/Armature/Skeleton3D/Base2")
 current_colour = Color(1, 0, 0, 1)
 colour_gradient = SubResource("Gradient_8l3po")
 
-[node name="Label3D" type="Label3D" parent="." index="17"]
+[node name="Label3D" type="Label3D" parent="." index="13"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0563288, 0.0568883, 0.0311788)
 pixel_size = 0.002
 text = "0"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="18"]
+[node name="Label3D2" type="Label3D" parent="." index="14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0219249, 0.125343, 0.0311788)
+visible = false
+pixel_size = 0.002
+text = "0"
+horizontal_alignment = 0
+
+[node name="Label3D3" type="Label3D" parent="." index="15"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0219249, 0.0536964, 0.0311788)
+visible = false
+pixel_size = 0.002
+text = "0"
+horizontal_alignment = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="16"]
 transform = Transform3D(1, 0, 0, 0, -4.37113e-08, -0.999999, 0, 0.999999, -4.37113e-08, 0, -0.0248413, -0.175943)
 mesh = SubResource("CylinderMesh_xprsg")
 
-[node name="RayCast3D" type="RayCast3D" parent="." index="19" node_paths=PackedStringArray("laser_dot")]
+[node name="RayCast3D" type="RayCast3D" parent="." index="17" node_paths=PackedStringArray("laser_dot")]
 transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0.0359679, -0.18165)
 target_position = Vector3(0, 0, -30)
 collision_mask = 131079
@@ -718,6 +746,13 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00568897)
 light_color = Color(1, 0, 0, 1)
 omni_range = 0.05
+
+[node name="SupportGrabPointHandLeft" parent="." index="18" instance=ExtResource("3_d7wka")]
+transform = Transform3D(0.892607, -0.449075, -0.0397965, 0.448202, 0.893457, -0.0291662, 0.0486542, 0.00819716, 0.998782, -0.0246566, -0.0251439, -0.0486576)
+mode = 2
+hand_pose = SubResource("Resource_rnfge")
+drive_position = 0.0
+drive_angle = 0.0
 
 [connection signal="action_pressed" from="." to="." method="fire"]
 [connection signal="action_pressed" from="." to="AmmoColourIndicator" method="update_colour"]

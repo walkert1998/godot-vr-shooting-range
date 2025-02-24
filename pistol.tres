@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="RangedWeapon" load_steps=11 format=3 uid="uid://cy6lud6a7gbx0"]
+[gd_resource type="Resource" script_class="RangedWeapon" load_steps=15 format=3 uid="uid://cy6lud6a7gbx0"]
 
 [ext_resource type="Script" path="res://scripts/Ammo.gd" id="1_53wrg"]
 [ext_resource type="AudioStream" uid="uid://fly1gnf8w0lc" path="res://sound/effects/weapons/pistol/pistol-fire-1.wav" id="2_bjpvm"]
@@ -9,6 +9,10 @@
 [ext_resource type="AudioStream" uid="uid://ckgdagctbcpna" path="res://sound/effects/weapons/pistol/pull_back_slide.ogg" id="5_8tlfh"]
 [ext_resource type="Resource" uid="uid://d3mvelli8k4ht" path="res://pistol_bullets.tres" id="6_g2xmn"]
 [ext_resource type="AudioStream" uid="uid://0xabhofs2iik" path="res://sound/effects/weapons/pistol/release_slide.ogg" id="6_jyer0"]
+[ext_resource type="AudioStream" uid="uid://d2m7h8fyaw807" path="res://sound/effects/weapons/pistol/low_ammo_fire.ogg" id="7_k87hg"]
+[ext_resource type="Curve" uid="uid://debl75f3gcdlj" path="res://pistol_recoil_curve_z.tres" id="8_o00c5"]
+[ext_resource type="Curve" uid="uid://qt023bxjsv1j" path="res://pistol_recoil_curve_x.tres" id="9_qalyy"]
+[ext_resource type="Curve" uid="uid://cn47gwxojnnfj" path="res://pistol_recoil_curve_y.tres" id="10_xuu44"]
 
 [sub_resource type="Resource" id="Resource_c7lkr"]
 script = ExtResource("3_t2s3i")
@@ -25,6 +29,7 @@ bullet_spread_angle = 0.0
 projectiles_per_shot = 1
 recoil = 10.0
 attack_sounds = Array[AudioStream]([ExtResource("2_bjpvm")])
+low_ammo_attack_sounds = Array[AudioStream]([ExtResource("7_k87hg")])
 slide_pull_sound = ExtResource("5_8tlfh")
 slide_release_sound = ExtResource("6_jyer0")
 load_magazine_sound = ExtResource("3_ycnqr")
@@ -32,6 +37,9 @@ drop_magazine_sound = ExtResource("2_hmg3h")
 ammo_types = Array[ExtResource("1_53wrg")]([])
 loaded_ammo_type = ExtResource("6_g2xmn")
 loaded_ammo_count = 0
+recoil_rotation_x = ExtResource("9_qalyy")
+recoil_rotation_z = ExtResource("10_xuu44")
+recoil_position_z = ExtResource("8_o00c5")
 zoomed_in_fov = 60.0
 base_item_id = "1"
 item_name = "pistol"

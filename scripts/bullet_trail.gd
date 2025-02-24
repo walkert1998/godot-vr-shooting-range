@@ -21,9 +21,11 @@ func draw(pos1: Vector3, pos2: Vector3):
 	draw_mesh.surface_add_vertex(pos2)
 	draw_mesh.surface_end()
 
-func draw_impact(on_enemy: bool, pos: Vector3, normal: Vector3):
+func draw_impact(on_enemy: bool, pos: Vector3, normal: Vector3, attached_body: Node3D=null):
 	if on_enemy:
 		blood_impact.spawn(pos, normal)
+	if attached_body:
+		blood_impact.reparent(attached_body)
 	#else:
 		#dirt_impact.spawn(pos, normal)
 	#pass

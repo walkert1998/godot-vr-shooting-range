@@ -60,12 +60,12 @@ tracker = &"left_hand"
 strafe = true
 
 [node name="FunctionPickup" parent="LeftHand" instance=ExtResource("4_bt2oo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0516316, 0.0757655)
 grab_distance = 0.1
 grab_collision_mask = 328708
 ranged_distance = 3.0
 
 [node name="FunctionTeleport" parent="LeftHand" instance=ExtResource("6_8bnpp")]
+visible = false
 enabled = false
 
 [node name="XRToolsRumbler" type="Node" parent="LeftHand" node_paths=PackedStringArray("target")]
@@ -86,7 +86,6 @@ turn_mode = 1
 step_turn_angle = 45.0
 
 [node name="FunctionPickup" parent="RightHand" instance=ExtResource("4_bt2oo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0516316, 0.0757655)
 grab_distance = 0.1
 grab_collision_mask = 328708
 ranged_distance = 3.0

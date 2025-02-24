@@ -152,7 +152,6 @@ shape = SubResource("ConcavePolygonShape3D_xhbu2")
 libraries = {
 "": SubResource("AnimationLibrary_bsi6h")
 }
-autoplay = "Popup"
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 

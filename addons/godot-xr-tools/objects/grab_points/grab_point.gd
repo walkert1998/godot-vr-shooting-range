@@ -30,9 +30,11 @@ func can_grab(grabber : Node3D, _current : XRToolsGrabPoint) -> float:
 
 
 # Return a distance-weighted fitness weight in the range (0.0 - max]
-func _weight(grabber : Node3D, max : float = 1.0) -> float:
+func _weight(grabber : Node3D, max : float = 2.0) -> float:
 	var distance := global_position.distance_to(grabber.global_position)
-	return max / (1.0 + distance)
+	var rot_distance := global_rotation.angle_to(grabber.global_rotation) / (2*PI)
+	print(str(self) + " distance to rotation: " + str(rot_distance))
+	return max / (2.0 + distance + rot_distance)
 
 
 # action is called when user presses the action button while holding this grab point

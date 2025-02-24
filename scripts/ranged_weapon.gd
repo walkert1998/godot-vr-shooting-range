@@ -12,6 +12,7 @@ class_name RangedWeapon extends Item
 @export var icon: Texture2D
 @export var weapon_view_model: PackedScene
 @export var attack_sounds: Array[AudioStream]
+@export var low_ammo_attack_sounds: Array[AudioStream]
 @export var slide_pull_sound: AudioStream
 @export var slide_release_sound: AudioStream
 @export var load_magazine_sound: AudioStream
