@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b8kir2jqyt4ws"]
+[gd_scene load_steps=23 format=3 uid="uid://b8kir2jqyt4ws"]
 
 [ext_resource type="PackedScene" uid="uid://dsqntlr6t87q4" path="res://scenes/XRPlayer.tscn" id="1_gfqum"]
 [ext_resource type="PackedScene" uid="uid://dogf6cypxkj12" path="res://scenes/reset_button.tscn" id="3_glj8t"]
@@ -46,6 +46,10 @@ points = PackedVector3Array(-0.5, -2, -11, 0.5, -2, -11, -0.5, -2, 11, -0.5, 2, 
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wllsp"]
 points = PackedVector3Array(-0.5, -2, -10, 0.5, -2, -10, -0.5, -2, 10, -0.5, 2, -10, 0.5, 2, -10, 0.5, -2, 10, -0.5, 2, 10, 0.5, 2, 10)
+
+[sub_resource type="Environment" id="Environment_fo0ta"]
+background_mode = 1
+ambient_light_source = 1
 
 [node name="ShootingRange" type="Node3D"]
 
@@ -166,40 +170,40 @@ mesh = SubResource("BoxMesh_3g7se")
 shape = SubResource("ConvexPolygonShape3D_wllsp")
 
 [node name="HumanTarget" parent="." instance=ExtResource("4_r2cck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -7)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3, 0, -7)
 
 [node name="HumanTarget2" parent="." instance=ExtResource("4_r2cck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -7)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3, 0, -7)
 
 [node name="HumanTarget3" parent="." instance=ExtResource("4_r2cck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -10)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3, 0, -10)
 
 [node name="HumanTarget4" parent="." instance=ExtResource("4_r2cck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -13)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3, 0, -13)
 
 [node name="HumanTarget7" parent="." instance=ExtResource("4_r2cck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -7)
 
 [node name="HumanTarget8" parent="." instance=ExtResource("4_r2cck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -10)
 
 [node name="HumanTarget9" parent="." instance=ExtResource("4_r2cck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -13)
 
 [node name="HumanTarget5" parent="." instance=ExtResource("4_r2cck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -13)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3, 0, -13)
 
 [node name="HumanTarget10" parent="." instance=ExtResource("4_r2cck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -16)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3, 0, -16)
 
 [node name="HumanTarget11" parent="." instance=ExtResource("4_r2cck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -16)
 
 [node name="HumanTarget12" parent="." instance=ExtResource("4_r2cck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -16)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3, 0, -16)
 
 [node name="HumanTarget6" parent="." instance=ExtResource("4_r2cck")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -10)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3, 0, -10)
 
 [node name="PistolMagazine" parent="." instance=ExtResource("6_on8b3")]
 transform = Transform3D(1, 0, 0, 0, 0.996029, -0.0890334, 0, 0.0890334, 0.996029, 0.524293, 1.06131, -1)
@@ -218,14 +222,14 @@ transform = Transform3D(0.707107, -0.683013, 0.183013, 0, 0.258819, 0.965926, -0
 [node name="InteractableAreaButton2" parent="." instance=ExtResource("3_glj8t")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.677053, 1, -1.00675)
 
-[node name="Pistol2" parent="." instance=ExtResource("3_w0br1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.227525, 1.10196, -0.956614)
-
 [node name="HelpButton" parent="." instance=ExtResource("5_eb0mi")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.451874, 1, -1.0087)
 
 [node name="StartButton" parent="." instance=ExtResource("8_etanm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.07825)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fo0ta")
 
 [connection signal="button_released" from="InteractableAreaButton2" to="InteractableAreaButton2" method="_reset_scene" unbinds=1]
 [connection signal="toggle_off" from="HelpButton" to="MeshInstance3D" method="hide"]

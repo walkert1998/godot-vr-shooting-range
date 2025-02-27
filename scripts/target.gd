@@ -1,6 +1,6 @@
 extends Node
 
-signal on_hit
+signal on_hit(string)
 
 @export var max_points: int = 500
 @export var hit_sounds: Array[AudioStream]
@@ -13,7 +13,7 @@ func damage(amount: int) -> int:
 	#audio_player.play()
 	#hide()
 	#hide()
-	emit_signal("on_hit")
+	emit_signal("on_hit", "500")
 	animation_player.play("Hide")
 	audio_player.play()
 	return 1

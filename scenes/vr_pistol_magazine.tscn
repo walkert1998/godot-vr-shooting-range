@@ -1,16 +1,29 @@
-[gd_scene load_steps=14 format=4 uid="uid://dx8ivq28088nj"]
+[gd_scene load_steps=19 format=4 uid="uid://dx8ivq28088nj"]
 
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_nbsqg"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="2_1ss1d"]
 [ext_resource type="Script" path="res://scripts/vr_ammo_magazine.gd" id="2_7ewbj"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="2_dauuu"]
+[ext_resource type="Animation" uid="uid://plad1r85f7ws" path="res://addons/godot-xr-tools/hands/animations/left/Grip.res" id="4_q0gnp"]
 [ext_resource type="ArrayMesh" uid="uid://dopx6i0wi57pp" path="res://models/ShootingGallery - Enviroment Pack/Miscellaneous/Bullets/9mmPB/9mmPB.obj" id="4_y77c6"]
 [ext_resource type="Material" uid="uid://dsqrvpgr7w41g" path="res://textures/pistol_bullet_1.tres" id="5_q5jll"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="5_xhm82"]
 [ext_resource type="PackedScene" uid="uid://da2qgxxwwitl6" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" id="7_5s63l"]
+[ext_resource type="Animation" uid="uid://ccds2u22gbxn7" path="res://addons/godot-xr-tools/hands/animations/right/Grip.res" id="7_5swc4"]
 [ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="8_7lxst"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rivq0"]
 size = Vector3(0.04, 0.119, 0.0584595)
+
+[sub_resource type="Resource" id="Resource_edh1m"]
+script = ExtResource("5_xhm82")
+open_pose = ExtResource("4_q0gnp")
+closed_pose = ExtResource("4_q0gnp")
+
+[sub_resource type="Resource" id="Resource_6cngr"]
+script = ExtResource("5_xhm82")
+open_pose = ExtResource("7_5swc4")
+closed_pose = ExtResource("7_5swc4")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6c2un"]
 
@@ -56,70 +69,72 @@ ammo_count = 10
 visible_bullets = [NodePath("9MmPb"), NodePath("9MmPb2"), NodePath("9MmPb3"), NodePath("9MmPb4"), NodePath("9MmPb5"), NodePath("9MmPb6"), NodePath("9MmPb7"), NodePath("9MmPb8"), NodePath("9MmPb9"), NodePath("9MmPb10")]
 
 [node name="CollisionShape3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 0.999823, -0.0188135, 0, 0.0188135, 0.999823, 0, 0.00229201, 0.00362429)
+transform = Transform3D(1, 0, 0, 0, 0.993602, 0.112943, 0, -0.112943, 0.993602, 0, 0.00229201, 0.00362429)
 shape = SubResource("BoxShape3D_rivq0")
 
 [node name="GrabPointHandLeft" parent="." index="1" instance=ExtResource("2_dauuu")]
 transform = Transform3D(-2.89023e-08, -0.661207, -0.750203, 1, -4.37114e-08, -2.62899e-15, -3.27924e-08, -0.750203, 0.661207, 0.0571982, -0.0409401, -0.106478)
+hand_pose = SubResource("Resource_edh1m")
 
 [node name="GrabPointHandRight" parent="." index="2" instance=ExtResource("2_1ss1d")]
 transform = Transform3D(-2.89069e-08, 0.661312, 0.750111, -1, -4.37114e-08, 0, 3.27884e-08, -0.750111, 0.661312, -0.057, -0.041, -0.106)
+hand_pose = SubResource("Resource_6cngr")
 
 [node name="GrabPointSnap" parent="." index="3" instance=ExtResource("8_7lxst")]
 visible = true
 
 [node name="9MmPb" type="MeshInstance3D" parent="." index="4"]
-transform = Transform3D(1.2, 0, 0, 0, -0.106577, -0.992108, 0, 0.843292, -0.125385, 0, 0.0551379, -0.00137593)
+transform = Transform3D(1.2, 0, 0, 0, 0.00235923, -0.999996, 0, 0.849997, 0.00277522, 0, 0.0543192, -0.00848862)
 mesh = ExtResource("4_y77c6")
 surface_material_override/0 = ExtResource("5_q5jll")
 
 [node name="9MmPb2" type="MeshInstance3D" parent="." index="5"]
-transform = Transform3D(1.2, 0, 0, 0, -0.106577, -0.992108, 0, 0.843292, -0.125385, 0, 0.0442528, -0.00275162)
+transform = Transform3D(1.2, 0, 0, 0, 0.00235923, -0.999996, 0, 0.849997, 0.00277522, 0, 0.0433476, -0.00845817)
 mesh = ExtResource("4_y77c6")
 surface_material_override/0 = ExtResource("5_q5jll")
 
 [node name="9MmPb3" type="MeshInstance3D" parent="." index="6"]
-transform = Transform3D(1.2, 0, 0, 0, -0.106577, -0.992108, 0, 0.843292, -0.125385, 0, 0.0331669, -0.00262447)
+transform = Transform3D(1.2, 0, 0, 0, 0.00235923, -0.999996, 0, 0.849997, 0.00277522, 0, 0.0323694, -0.00691155)
 mesh = ExtResource("4_y77c6")
 surface_material_override/0 = ExtResource("5_q5jll")
 
 [node name="9MmPb4" type="MeshInstance3D" parent="." index="7"]
-transform = Transform3D(1.2, 0, 0, 0, -0.106577, -0.992108, 0, 0.843292, -0.125385, 0, 0.0219202, -0.00132742)
+transform = Transform3D(1.2, 0, 0, 0, 0.00235923, -0.999996, 0, 0.849997, 0.00277522, 0, 0.0213816, -0.00418406)
 mesh = ExtResource("4_y77c6")
 surface_material_override/0 = ExtResource("5_q5jll")
 
 [node name="9MmPb5" type="MeshInstance3D" parent="." index="8"]
-transform = Transform3D(1.2, 0, 0, 0, -0.106577, -0.992108, 0, 0.843292, -0.125385, 0, 0.0106407, -0.000243625)
+transform = Transform3D(1.2, 0, 0, 0, 0.00235923, -0.999996, 0, 0.849997, 0.00277522, 0, 0.010334, -0.00166387)
 mesh = ExtResource("4_y77c6")
 surface_material_override/0 = ExtResource("5_q5jll")
 
 [node name="9MmPb6" type="MeshInstance3D" parent="." index="9"]
-transform = Transform3D(1.2, 0, 0, 0, -0.106577, -0.992108, 0, 0.843292, -0.125385, 0, -0.000701008, 0.000623187)
+transform = Transform3D(1.2, 0, 0, 0, 0.00235923, -0.999996, 0, 0.849997, 0.00277522, 0, -0.000803187, 0.0006491)
 mesh = ExtResource("4_y77c6")
 surface_material_override/0 = ExtResource("5_q5jll")
 
 [node name="9MmPb7" type="MeshInstance3D" parent="." index="10"]
-transform = Transform3D(1.2, 0, 0, 0, -0.106577, -0.992108, 0, 0.843292, -0.125385, 0, -0.0119771, 0.00191651)
+transform = Transform3D(1.2, 0, 0, 0, 0.00235923, -0.999996, 0, 0.849997, 0.00277522, 0, -0.0118206, 0.00337666)
 mesh = ExtResource("4_y77c6")
 surface_material_override/0 = ExtResource("5_q5jll")
 
 [node name="9MmPb8" type="MeshInstance3D" parent="." index="11"]
-transform = Transform3D(1.2, 0, 0, 0, -0.106577, -0.992108, 0, 0.843292, -0.125385, 0, -0.023139, 0.00301517)
+transform = Transform3D(1.2, 0, 0, 0, 0.00235923, -0.999996, 0, 0.849997, 0.00277522, 0, -0.0227497, 0.00589652)
 mesh = ExtResource("4_y77c6")
 surface_material_override/0 = ExtResource("5_q5jll")
 
 [node name="9MmPb9" type="MeshInstance3D" parent="." index="12"]
-transform = Transform3D(1.2, 0, 0, 0, -0.106577, -0.992108, 0, 0.843292, -0.125385, 0, -0.034379, 0.00473129)
+transform = Transform3D(1.2, 0, 0, 0, 0.00235923, -0.999996, 0, 0.849997, 0.00277522, 0, -0.0336771, 0.00903876)
 mesh = ExtResource("4_y77c6")
 surface_material_override/0 = ExtResource("5_q5jll")
 
 [node name="9MmPb10" type="MeshInstance3D" parent="." index="13"]
-transform = Transform3D(1.2, 0, 0, 0, -0.106577, -0.992108, 0, 0.843292, -0.125385, 0, -0.0456258, 0.00602834)
+transform = Transform3D(1.2, 0, 0, 0, 0.00235923, -0.999996, 0, 0.849997, 0.00277522, 0, -0.044665, 0.0117663)
 mesh = ExtResource("4_y77c6")
 surface_material_override/0 = ExtResource("5_q5jll")
 
 [node name="Magazine" type="MeshInstance3D" parent="." index="14"]
-transform = Transform3D(-9.00632e-08, -1.52469, -4.59129e-08, 0.208581, -1.90674e-07, 0.382104, -1.65039, 5.91056e-08, 0.0482913, 3.62165e-10, -0.0553543, 0.00774154)
+transform = Transform3D(-9.00632e-08, -1.52469, -4.59129e-08, -0.00461593, -1.81528e-07, 0.385142, -1.66351, 8.30509e-08, -0.00106879, 3.62165e-10, -0.0540938, 0.0147119)
 mesh = SubResource("ArrayMesh_eiueb")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_k3wd8")

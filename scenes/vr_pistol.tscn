@@ -170,6 +170,7 @@ blend_shape_mode = 0
 
 [sub_resource type="Resource" id="Resource_gaw7q"]
 script = ExtResource("5_bokn0")
+open_pose = ExtResource("15_qhmjp")
 closed_pose = ExtResource("15_qhmjp")
 
 [sub_resource type="Resource" id="Resource_g52ch"]
@@ -179,6 +180,7 @@ closed_pose = ExtResource("13_3pefy")
 
 [sub_resource type="Resource" id="Resource_btq47"]
 script = ExtResource("5_bokn0")
+open_pose = ExtResource("15_qhmjp")
 closed_pose = ExtResource("15_qhmjp")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3uvgu"]
@@ -442,7 +444,7 @@ closed_pose = ExtResource("7_qkrvq")
 radius = 0.045
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dlxe4"]
-size = Vector3(0.1, 0.08, 0.154728)
+size = Vector3(0.07, 0.05, 0.155)
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_fgyme"]
 
@@ -508,7 +510,6 @@ loaded_bullet = NodePath("LoadedBullet")
 collision_layers = 7
 skeleton = NodePath("pistol-with-mods-vr/Armature/Skeleton3D")
 round_chambered = false
-second_hand_grab = 2
 
 [node name="CollisionShape3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0204746, -0.0426328)
@@ -708,6 +709,7 @@ colour_gradient = SubResource("Gradient_8l3po")
 
 [node name="Label3D" type="Label3D" parent="." index="13"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0563288, 0.0568883, 0.0311788)
+visible = false
 pixel_size = 0.002
 text = "0"
 

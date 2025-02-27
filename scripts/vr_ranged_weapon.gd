@@ -254,7 +254,7 @@ func hitscan_raycast() -> int:
 	query.to = Vector3(query.to.x + random_spread_x, query.to.y + random_spread_y, query.to.z)
 	var collision = space.intersect_ray(query)
 	if collision:
-		print(collision["collider"])
+		#print(collision["collider"])
 		var bullet_trail_spawn: BulletTrail = bullet_trail_prefab.instantiate()
 		get_tree().root.add_child(bullet_trail_spawn)
 		bullet_trail_spawn.draw(trail_spawn_point.global_position, collision.position)
@@ -267,7 +267,7 @@ func hitscan_raycast() -> int:
 				#var impact_effect: ImpactEffect = load(collision["collider"].attached_enemy.npc_template.blood_impact_effect_path).instantiate()
 				#get_tree().root.add_child(impact_effect)
 				#impact_effect.spawn(collision.position, collision.normal)
-		bullet_trail_spawn.draw_impact(true, collision.position, collision.normal, collision["collider"])
+		bullet_trail_spawn.draw_impact(true, collision.position, collision.normal, collision.collider)
 		#else:
 			#bullet_trail_spawn.draw_impact(false, collision.position, collision.normal)
 			#if generic_impact_effect != "":
