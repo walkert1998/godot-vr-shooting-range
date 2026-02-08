@@ -1,5 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dsqntlr6t87q4"]
+[gd_scene load_steps=23 format=3 uid="uid://dsqntlr6t87q4"]
 
+[ext_resource type="PackedScene" uid="uid://cc6ngdqie8o8c" path="res://addons/godot-xr-tools/effects/vignette.tscn" id="2_b8g87"]
 [ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="2_w17sv"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_u851r"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_bt2oo"]
@@ -8,21 +9,27 @@
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_qxgip"]
 [ext_resource type="PackedScene" uid="uid://ddsj74hpt1kgb" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_physics_tac_glove.tscn" id="7_6ykkb"]
 [ext_resource type="PackedScene" uid="uid://b6xesntm4qeo5" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_physics_tac_glove.tscn" id="9_lnxbf"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="12_igmon"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumbler.gd" id="14_kb6uy"]
+[ext_resource type="Script" uid="uid://cddp6iuks5svh" path="res://scripts/backpack.gd" id="12_8edyl"]
+[ext_resource type="Script" uid="uid://b64d0cgrmlpr8" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="12_igmon"]
+[ext_resource type="PackedScene" uid="uid://dx8ivq28088nj" path="res://scenes/vr_pistol_magazine.tscn" id="13_08ueg"]
+[ext_resource type="AudioStream" uid="uid://cmohy5tluckkb" path="res://sound/effects/interaction/generic_pickup.ogg" id="14_862xj"]
+[ext_resource type="Script" uid="uid://b15wmjxk47dh4" path="res://addons/godot-xr-tools/rumble/rumbler.gd" id="14_kb6uy"]
+[ext_resource type="AudioStream" uid="uid://m6qknjumh2fh" path="res://sound/effects/interaction/zapsplat_foley_luggage_rucksack_backpack_drop_on_grass_004_47963.mp3" id="14_m1xkl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m1xkl"]
+size = Vector3(1, 0.3, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6m4nl"]
+size = Vector3(0.9, 0.8, 0.25)
 
 [sub_resource type="Resource" id="Resource_e4211"]
 script = ExtResource("12_igmon")
 magnitude = 0.3
-active_during_pause = false
-indefinite = false
 duration_ms = 100
 
 [sub_resource type="Resource" id="Resource_6uq6k"]
 script = ExtResource("12_igmon")
 magnitude = 0.3
-active_during_pause = false
-indefinite = false
 duration_ms = 100
 
 [sub_resource type="SphereMesh" id="SphereMesh_fedcg"]
@@ -50,7 +57,29 @@ current = true
 
 [node name="VRCommonShaderCache" parent="XRCamera3D" instance=ExtResource("2_w17sv")]
 
-[node name="LeftHand" type="XRController3D" parent="."]
+[node name="Vignette" parent="XRCamera3D" instance=ExtResource("2_b8g87")]
+
+[node name="Backpack" type="Area3D" parent="XRCamera3D" node_paths=PackedStringArray("audio_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.028372884, 0.157)
+collision_layer = 65536
+collision_mask = 65536
+script = ExtResource("12_8edyl")
+object_to_spawn = ExtResource("13_08ueg")
+stash_sound = ExtResource("14_m1xkl")
+grab_sound = ExtResource("14_862xj")
+audio_player = NodePath("AudioStreamPlayer3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRCamera3D/Backpack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12218523, -0.025000006)
+shape = SubResource("BoxShape3D_m1xkl")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="XRCamera3D/Backpack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4237156, -0.005110055)
+shape = SubResource("BoxShape3D_6m4nl")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="XRCamera3D/Backpack"]
+
+[node name="LeftHand" type="XRController3D" parent="." groups=["PlayerHand"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"left_hand"
 
@@ -59,7 +88,7 @@ tracker = &"left_hand"
 [node name="MovementDirect" parent="LeftHand" instance=ExtResource("3_u851r")]
 strafe = true
 
-[node name="FunctionPickup" parent="LeftHand" instance=ExtResource("4_bt2oo")]
+[node name="LeftHandFunctionPickup" parent="LeftHand" instance=ExtResource("4_bt2oo")]
 grab_distance = 0.1
 grab_collision_mask = 328708
 ranged_distance = 3.0
@@ -75,7 +104,7 @@ target = NodePath("..")
 
 [node name="LeftPhysicsHand" parent="LeftHand" instance=ExtResource("7_6ykkb")]
 
-[node name="RightHand" type="XRController3D" parent="."]
+[node name="RightHand" type="XRController3D" parent="." groups=["PlayerHand"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
 
@@ -85,7 +114,7 @@ tracker = &"right_hand"
 turn_mode = 1
 step_turn_angle = 45.0
 
-[node name="FunctionPickup" parent="RightHand" instance=ExtResource("4_bt2oo")]
+[node name="RightHandFunctionPickup" parent="RightHand" instance=ExtResource("4_bt2oo")]
 grab_distance = 0.1
 grab_collision_mask = 328708
 ranged_distance = 3.0
@@ -98,6 +127,7 @@ target = NodePath("..")
 [node name="RightPhysicsHand" parent="RightHand" instance=ExtResource("9_lnxbf")]
 
 [node name="PlayerBody" parent="." instance=ExtResource("6_qxgip")]
+collision_mask = 1019
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
@@ -108,3 +138,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 mesh = SubResource("SphereMesh_fedcg")
 skeleton = NodePath("../XRCamera3D")
 surface_material_override/0 = SubResource("StandardMaterial3D_vl1wm")
+
+[connection signal="area_entered" from="XRCamera3D/Backpack" to="XRCamera3D/Backpack" method="_on_area_entered"]
+[connection signal="area_exited" from="XRCamera3D/Backpack" to="XRCamera3D/Backpack" method="_on_area_exited"]
+[connection signal="body_entered" from="XRCamera3D/Backpack" to="XRCamera3D/Backpack" method="_on_body_entered"]
+[connection signal="body_exited" from="XRCamera3D/Backpack" to="XRCamera3D/Backpack" method="_on_body_exited"]

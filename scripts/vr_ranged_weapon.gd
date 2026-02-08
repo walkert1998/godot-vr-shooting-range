@@ -37,6 +37,8 @@ var prev_slide_pullback: float = 0.0
 var current_time: float = 2
 var target_rot: Vector3
 var target_pos: Vector3
+var main_hand: XRController3D
+var supporting_hand: XRController3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -56,37 +58,54 @@ func _ready() -> void:
 
 func _physics_process(delta):
 	if current_time < 1 and is_picked_up():
+		target_rot.x = ranged_weapon.recoil_rotation_x.sample(current_time)
+		#var rot = ranged_weapon.recoil_rotation_x.sample(current_time) * -transform.basis.z
+		#target_rot = rot + rotation
+		var vec = ranged_weapon.recoil_position_z.sample(current_time) * -transform.basis.z
+		if supporting_hand != null:
+			target_rot.x *= 0.2
+			vec.z = 0
+		target_pos = vec + position
 		current_time += delta
 		position = lerp(position, target_pos, 10 * delta)
 		var new_rot_x = lerp(rotation.x, target_rot.x, 10 * delta)
 		rotate_object_local(Vector3.RIGHT, target_rot.x)
 		if magazine:
-			magazine.position = lerp(magazine.position, target_pos, 10 * delta)
+			magazine.position = lerp(magazine.position, vec + magazine.position, 10 * delta)
 			magazine.rotate_object_local(Vector3.RIGHT, target_rot.x)
 		#rotation.z = lerp(rotation.z, target_rot.z, 10 * delta)
 		#rotation.x = lerp(rotation.x, target_rot.x, 10 * delta)
 		#print(get_picked_up_by_controller().rotation.x)
 		#get_picked_up_by_controller().find_child("*PhysicsHand").rotation.x = lerp(get_picked_up_by_controller().rotation.x, target_rot.x, 10 * delta)
-		get_picked_up_by_controller().find_child("*PhysicsHand").position = lerp(get_picked_up_by_controller().find_child("*PhysicsHand").position, target_pos, 10 * delta)
-		get_picked_up_by_controller().find_child("*PhysicsHand").rotate_object_local(Vector3.RIGHT, target_rot.x)
+		var main_hand_pos = main_hand.find_child("*PhysicsHand").position
+		main_hand.find_child("*PhysicsHand").position = lerp(main_hand_pos, vec + main_hand_pos, 10 * delta)
+		main_hand.find_child("*PhysicsHand").rotate_object_local(Vector3.RIGHT, target_rot.x)
+		if supporting_hand != null:
+			var sup_hand_pos = supporting_hand.find_child("*PhysicsHand").position
+			supporting_hand.find_child("*PhysicsHand").position = lerp(sup_hand_pos, vec + sup_hand_pos, 10 * delta)
+			supporting_hand.find_child("*PhysicsHand").rotate_object_local(Vector3.RIGHT, target_rot.x)
 		#print(get_picked_up_by_controller().rotation.x)
 		
-		#target_rot.z = ranged_weapon.recoil_rotation_z.sample(current_time)
-		target_rot.x = ranged_weapon.recoil_rotation_x.sample(current_time)
-		#var rot = ranged_weapon.recoil_rotation_x.sample(current_time) * -transform.basis.z
-		#target_rot = rot + rotation
-		var vec = ranged_weapon.recoil_position_z.sample(current_time) * -transform.basis.z
-		target_pos = vec + position
+		##target_rot.z = ranged_weapon.recoil_rotation_z.sample(current_time)
+		#target_rot.x = ranged_weapon.recoil_rotation_x.sample(current_time)
+		##var rot = ranged_weapon.recoil_rotation_x.sample(current_time) * -transform.basis.z
+		##target_rot = rot + rotation
+		#var vec = ranged_weapon.recoil_position_z.sample(current_time) * -transform.basis.z
+		#if supporting_hand != null:
+			#target_rot.x *= 0.2
+			#vec.z = 0
+		#target_pos = vec + position
 		$Label3D2.text = str(rotation)
 		#$Label3D3.text = str(target_pos)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	#super()
-	if is_picked_up() and get_picked_up_by_controller() and get_picked_up_by_controller().is_button_pressed("by_button"):
-		if magazine and !animation_player.is_playing():
-			animation_player.play("EjectMagazine")
-			play_sound(ranged_weapon.drop_magazine_sound)
+	if main_hand:
+		if main_hand.is_button_pressed("by_button"):
+			if magazine and !animation_player.is_playing():
+				animation_player.play("EjectMagazine")
+				play_sound(ranged_weapon.drop_magazine_sound)
 	
 	if round_chambered:
 		$Label3D.modulate = Color.GREEN
@@ -153,20 +172,24 @@ func _on_magazine_ejected():
 	if round_chambered:
 		round_count = 1
 	$Label3D.text = str(round_count)
+	main_hand.find_child("XRToolsRumbler").rumble()
 
 func _on_MagazineSnapZone_has_picked_up(object):
-	print(object)
-	magazine = object
-	magazine.disable_collision()
-	magazine.enabled = false
-	if round_chambered:
-		$Label3D.text = str(magazine.ammo_count + 1)
-	else:
-		$Label3D.text = str(magazine.ammo_count)
-	animation_player.play("LoadMagazine")
-	play_sound(ranged_weapon.load_magazine_sound)
+	if is_picked_up():
+		#print(object)
+		magazine = object
+		magazine.disable_collision()
+		magazine.enabled = false
+		if round_chambered:
+			$Label3D.text = str(magazine.ammo_count + 1)
+		else:
+			$Label3D.text = str(magazine.ammo_count)
+		animation_player.play("LoadMagazine")
+		play_sound(ranged_weapon.load_magazine_sound)
+		main_hand.find_child("XRToolsRumbler").rumble()
 
 func _on_picked_up(pickable):
+	main_hand = _grab_driver.primary.controller
 	slide_pickup.enabled = true
 	slide_pickup.collision_layer = slide_layer
 	var round_count: int = 0
@@ -181,6 +204,9 @@ func _on_dropped(pickable):
 		slide_pickup.drop()
 	slide_pickup.enabled = false
 	slide_pickup.collision_layer = 0
+	supporting_hand = null
+	main_hand = null
+	print_debug("DROPPED HERE")
 
 func _on_Slide_picked_up(pickable):
 	slide_start_pos = slide_pickup.transform.origin
@@ -200,7 +226,7 @@ func eject_casing():
 		bullet_casing.linear_velocity = bullet_casing.global_transform.basis.y * 2 + bullet_casing.global_transform.basis.x * 0.5
 
 func fire(pickable):
-	if round_chambered:
+	if round_chambered and main_hand.is_button_pressed("trigger"):
 		if slide_pickup.is_picked_up():
 			slide_pickup.drop()
 		if !animation_player.is_playing():
@@ -224,13 +250,15 @@ func fire(pickable):
 			if round_chambered:
 				bullets_count += 1
 			$Label3D.text = str(bullets_count)
-			if !round_chambered:
-				animation_player.play("EmptyFire")
-			get_picked_up_by_controller().find_child("XRToolsRumbler").rumble()
+			#if !round_chambered:
+				#animation_player.play("EmptyFire")
+			main_hand.find_child("XRToolsRumbler").rumble()
+			if supporting_hand != null:
+				supporting_hand.find_child("XRToolsRumbler").rumble()
 			hitscan_raycast()
-	else:
-		if !animation_player.is_playing():
-			animation_player.play("EmptyFire")
+	#elif main_hand.is_button_pressed("trigger"):
+		#if !animation_player.is_playing():
+			#animation_player.play("EmptyFire")
 
 func play_sound(stream: AudioStream):
 	if !stream:
@@ -256,7 +284,7 @@ func hitscan_raycast() -> int:
 	if collision:
 		#print(collision["collider"])
 		var bullet_trail_spawn: BulletTrail = bullet_trail_prefab.instantiate()
-		get_tree().root.add_child(bullet_trail_spawn)
+		get_tree().current_scene.add_child(bullet_trail_spawn)
 		bullet_trail_spawn.draw(trail_spawn_point.global_position, collision.position)
 		if collision is RigidBody3D:
 			collision["collider"].apply_impulse(query.to, collision.position)
@@ -281,7 +309,7 @@ func hitscan_raycast() -> int:
 		return 0
 	else:
 		var bullet_trail_spawn: BulletTrail = bullet_trail_prefab.instantiate()
-		get_tree().root.add_child(bullet_trail_spawn)
+		get_tree().current_scene.add_child(bullet_trail_spawn)
 		bullet_trail_spawn.draw(trail_spawn_point.global_position, query.to)
 		return 1
 
@@ -291,5 +319,18 @@ func apply_recoil():
 	target_rot.x = ranged_weapon.recoil_rotation_x.sample(0)
 	#target_pos.z = ranged_weapon.recoil_position_z.sample(0)
 	current_time = 0
-	var vec = ranged_weapon.recoil_position_z.sample(current_time) * -transform.basis.z
+	var vec = ranged_weapon.recoil_position_z.sample(current_time) * -global_transform.basis.z
 	target_pos = vec + position
+
+
+func _on_grabbed(pickable: Variant, by: Variant) -> void:
+	if _grab_driver != null and _grab_driver.secondary != null:
+		supporting_hand = _grab_driver.secondary.controller
+
+
+func _on_released(pickable: Variant, by: Variant) -> void:
+	print_debug("We were dropped by " + by.name)
+	#if is_picked_up():
+		#supporting_hand = null
+	if by == main_hand and supporting_hand:
+		supporting_hand.drop_object()

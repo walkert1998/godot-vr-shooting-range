@@ -331,7 +331,8 @@ func let_go(by: Node3D, p_linear_velocity: Vector3, p_angular_velocity: Vector3)
 	# Skip if not picked up
 	if not is_picked_up():
 		return
-
+	print_debug(by)
+	print_debug(_grab_driver)
 	# Get the grab information
 	var grab := _grab_driver.get_grab(by)
 	if not grab:
@@ -421,7 +422,7 @@ func _get_grab_point(grabber : Node3D, current : XRToolsGrabPoint) -> XRToolsGra
 	var point : XRToolsGrabPoint = null
 	for p in _grab_points:
 		var f := p.can_grab(grabber, current)
-		print (str(p) + " " + str(f))
+		#print (str(p) + " " + str(f))
 		if f > fitness:
 			fitness = f
 			point = p

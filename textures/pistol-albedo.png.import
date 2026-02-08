@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbpppopg5ga6p"
-path.s3tc="res://.godot/imported/pistol-albedo.png-18be53af9dcf8eb828a7b477bee8a359.s3tc.ctex"
+path.s3tc="res://.godot/imported/pistol-albedo.png-51db422cba386579425fc97de7f8db59.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/pistol-albedo.png"
-dest_files=["res://.godot/imported/pistol-albedo.png-18be53af9dcf8eb828a7b477bee8a359.s3tc.ctex"]
+source_file="res://textures/pistol-albedo.png"
+dest_files=["res://.godot/imported/pistol-albedo.png-51db422cba386579425fc97de7f8db59.s3tc.ctex"]
 
 [params]
 

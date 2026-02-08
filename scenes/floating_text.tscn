@@ -1,80 +1,58 @@
 [gd_scene load_steps=5 format=3 uid="uid://b763k4h3dh70l"]
 
-[ext_resource type="Script" path="res://scripts/floating_text.gd" id="1_tpp50"]
+[ext_resource type="Script" uid="uid://kuou2yr7ym77" path="res://scripts/floating_text.gd" id="1_tpp50"]
 
-[sub_resource type="Animation" id="Animation_v0omh"]
+[sub_resource type="Animation" id="Animation_74ffk"]
 resource_name = "Fade"
-length = 3.0
+length = 1.5
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Label3D:modulate")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.133333, 2, 3),
+"times": PackedFloat32Array(0, 0.1, 1, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label3D:outline_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1333, 2, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
 
-[sub_resource type="Animation" id="Animation_g4732"]
+[sub_resource type="Animation" id="Animation_4waqh"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Label3D:modulate")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label3D:outline_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_cnmcv"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jwjrl"]
 _data = {
-"Fade": SubResource("Animation_v0omh"),
-"RESET": SubResource("Animation_g4732")
+&"Fade": SubResource("Animation_74ffk"),
+&"RESET": SubResource("Animation_4waqh")
 }
 
-[node name="FloatingText" type="Node3D" node_paths=PackedStringArray("label", "animation_player")]
-script = ExtResource("1_tpp50")
-label = NodePath("Label3D")
-animation_player = NodePath("AnimationPlayer")
-
-[node name="Label3D" type="Label3D" parent="."]
-pixel_size = 0.01
-billboard = 1
+[node name="Label3D" type="Label3D" node_paths=PackedStringArray("label", "animation_player")]
+pixel_size = 0.002
+billboard = 2
 no_depth_test = true
-text = "+100"
+fixed_size = true
+modulate = Color(1, 1, 1, 0)
+outline_modulate = Color(0, 0, 0, 0)
+text = "Test"
+script = ExtResource("1_tpp50")
+label = NodePath(".")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_cnmcv")
+&"": SubResource("AnimationLibrary_jwjrl")
 }

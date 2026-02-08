@@ -9,7 +9,7 @@ var audio_player: AudioStreamPlayer3D
 
 func spawn(pos: Vector3, normal: Vector3):
 	#print(str(pos) + " " + str(normal))
-	top_level = true
+	#top_level = true
 	global_transform.origin = pos
 	var sprite = impact_sprites[randi_range(0, impact_sprites.size() - 1)]
 	sprite.show()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://bcmneiqubwrxd"]
 
-[ext_resource type="Script" path="res://scripts/impact_effect.gd" id="1_3nlb2"]
+[ext_resource type="Script" uid="uid://ceojg1ktu81nx" path="res://scripts/impact_effect.gd" id="1_3nlb2"]
 [ext_resource type="AudioStream" uid="uid://bjh1enfvkgiq3" path="res://sound/effects/impact/wood_impact_1.ogg" id="2_a6sxt"]
 [ext_resource type="Texture2D" uid="uid://b2lfambtfyt7y" path="res://textures/smoke_01.png" id="2_e510j"]
 [ext_resource type="AudioStream" uid="uid://2pk7ww1qyxun" path="res://sound/effects/impact/wood_impact_2.ogg" id="3_3lsbo"]

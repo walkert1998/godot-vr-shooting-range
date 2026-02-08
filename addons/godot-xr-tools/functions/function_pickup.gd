@@ -117,7 +117,8 @@ func _ready():
 	# Create the grab area
 	_grab_area = Area3D.new()
 	_grab_area.set_name("GrabArea")
-	_grab_area.collision_layer = 0
+	# Changed this to the Held Objects layer to support two-hand pistol grip
+	_grab_area.collision_layer = 65536
 	_grab_area.collision_mask = grab_collision_mask
 	_grab_area.add_child(_grab_collision)
 	_grab_area.area_entered.connect(_on_grab_entered)

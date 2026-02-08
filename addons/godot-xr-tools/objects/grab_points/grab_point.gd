@@ -33,7 +33,7 @@ func can_grab(grabber : Node3D, _current : XRToolsGrabPoint) -> float:
 func _weight(grabber : Node3D, max : float = 2.0) -> float:
 	var distance := global_position.distance_to(grabber.global_position)
 	var rot_distance := global_rotation.angle_to(grabber.global_rotation) / (2*PI)
-	print(str(self) + " distance to rotation: " + str(rot_distance))
+	#print(str(self) + " distance to rotation: " + str(rot_distance))
 	return max / (2.0 + distance + rot_distance)
 
 

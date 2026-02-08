@@ -26,6 +26,8 @@ func draw_impact(on_enemy: bool, pos: Vector3, normal: Vector3, attached_body: N
 		blood_impact.spawn(pos, normal)
 	if attached_body:
 		blood_impact.reparent(attached_body)
+		if attached_body.find_child("Body"):
+			blood_impact.reparent(attached_body.find_child("Body"))
 		print("Attaching damage sprite to " + str(attached_body))
 	#else:
 		#dirt_impact.spawn(pos, normal)
