@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=4 uid="uid://dlutry7ttvvb5"]
+[gd_scene load_steps=78 format=4 uid="uid://dlutry7ttvvb5"]
 
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_nxxv3"]
 [ext_resource type="Script" uid="uid://c3ugt8htn0aw4" path="res://scripts/vr_ranged_weapon.gd" id="2_h7o8y"]
@@ -223,7 +223,7 @@ shadow_mesh = SubResource("ArrayMesh_3ssjo")
 
 [sub_resource type="Animation" id="Animation_ymvn0"]
 resource_name = "EjectMagazine"
-length = 0.5
+length = 0.31
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -231,10 +231,10 @@ tracks/0/path = NodePath("../MagazineSnapZone:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(4.996e-16, -0.0400965, 0.042304), Vector3(4.996e-16, -0.08598895, 0.055229865)]
+"values": [Vector3(4.996e-16, -0.0400965, 0.042304), Vector3(4.996e-16, -0.13793051, 0.06478333)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -243,13 +243,24 @@ tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.5),
+"times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"_on_magazine_ejected"
 }]
 }
+
+[sub_resource type="Animation" id="Animation_7gem7"]
+resource_name = "Fire"
+length = 0.15
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature/Skeleton3D:Slide")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.021, -0.009, 0, 0.03333334, 1, -0.021000002, -0.025661442, -1.4565906e-09, 0.13333334, 1, -0.021, -0.009, 0)
 
 [sub_resource type="Animation" id="Animation_3qpa6"]
 resource_name = "InsertMagazine"
@@ -266,20 +277,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(4.996e-16, -0.08598895, 0.055229865), Vector3(4.996e-16, -0.0400965, 0.042304)]
 }
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"_on_magazine_loaded"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_twqfk"]
 length = 0.001
@@ -295,10 +292,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(4.996e-16, -0.0400965, 0.042304)]
 }
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature/Skeleton3D:Slide")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.021, -0.009, 0)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3qpa6"]
 _data = {
 &"EjectMagazine": SubResource("Animation_ymvn0"),
+&"Fire": SubResource("Animation_7gem7"),
 &"LoadMagazine": SubResource("Animation_3qpa6"),
 &"RESET": SubResource("Animation_twqfk")
 }
@@ -480,8 +485,8 @@ bones/3/parent = 0
 bones/3/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0212841, -0.00934509, 0)
 bones/3/enabled = true
 bones/3/position = Vector3(-0.021, -0.009, 0)
-bones/3/rotation = Quaternion(-3.76158e-37, -1.77636e-15, 2.11758e-22, 1)
-bones/3/scale = Vector3(1, 1, 1)
+bones/3/rotation = Quaternion(-3.5527124e-15, -5.329069e-15, -2.1175817e-22, 1)
+bones/3/scale = Vector3(1.0000004, 1.0000004, 1.0000004)
 bones/4/name = "Slide_end"
 bones/4/parent = 3
 bones/4/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0210165, 0)
@@ -518,7 +523,7 @@ mesh = SubResource("ArrayMesh_42wk6")
 skin = SubResource("Skin_qtso5")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="pistol-with-mods-vr/Armature/Skeleton3D" index="5"]
-transform = Transform3D(1, -4.23516e-22, -3.55272e-15, -3.55272e-15, 1.5046328e-36, -1, 4.23516e-22, 1, -8.52e-43, -0.020940535, 0, -0.033546098)
+transform = Transform3D(1.0000004, 4.235165e-22, -1.0658141e-14, -1.0658141e-14, 7.1054274e-15, -1.0000004, -4.2351647e-22, 1.0000004, 7.1054274e-15, -0.020940535, 0, -0.033546098)
 bone_name = "Slide"
 bone_idx = 3
 
@@ -533,7 +538,7 @@ mode = 1
 hand_pose = SubResource("Resource_g52ch")
 
 [node name="BoneAttachment3D2" type="BoneAttachment3D" parent="pistol-with-mods-vr/Armature/Skeleton3D" index="6"]
-transform = Transform3D(1, -4.23516e-22, -3.55272e-15, -3.55272e-15, 1.5046328e-36, -1, 4.23516e-22, 1, -8.52e-43, -0.020940535, 0, -0.033546098)
+transform = Transform3D(1.0000004, 4.235165e-22, -1.0658141e-14, -1.0658141e-14, 7.1054274e-15, -1.0000004, -4.2351647e-22, 1.0000004, 7.1054274e-15, -0.020940535, 0, -0.033546098)
 bone_name = "Slide"
 bone_idx = 3
 
@@ -634,6 +639,8 @@ target = NodePath("../../../pistol-with-mods-vr/Armature/Skeleton3D/BoneAttachme
 
 [node name="MagazineSnapZone" parent="." index="8" instance=ExtResource("7_d8ft8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.996e-16, -0.0400965, 0.042304)
+monitoring = false
+enabled = false
 stash_sound = ExtResource("9_bgb8l")
 grab_distance = 0.06
 snap_mode = 1
@@ -758,9 +765,7 @@ disabled = true
 [connection signal="picked_up" from="." to="SupportHandArea" method="enable_support" unbinds=1]
 [connection signal="picked_up" from="." to="SupportHandArea2" method="enable_support" unbinds=1]
 [connection signal="released" from="." to="." method="_on_released"]
-[connection signal="released" from="." to="SupportHandArea" method="disable_support" unbinds=2]
 [connection signal="released" from="." to="SupportHandArea" method="release_supporting_hand" unbinds=2]
-[connection signal="released" from="." to="SupportHandArea2" method="disable_support" unbinds=2]
 [connection signal="released" from="." to="SupportHandArea2" method="release_supporting_hand" unbinds=2]
 [connection signal="dropped" from="SlideOrigin/SlidePickup" to="." method="_on_Slide_dropped"]
 [connection signal="picked_up" from="SlideOrigin/SlidePickup" to="." method="_on_Slide_picked_up"]

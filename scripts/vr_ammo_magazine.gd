@@ -15,6 +15,7 @@ func use_ammo():
 
 func disable_collision():
 	freeze = true
+	print_debug(freeze)
 	$CollisionShape3D.disabled = true
 
 func enable_collision():

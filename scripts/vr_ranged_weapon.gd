@@ -164,9 +164,9 @@ func _on_magazine_loaded():
 
 func _on_magazine_ejected():
 	magazine_snap_zone.drop_object()
-	magazine.enable_collision()
 	if magazine.ammo_count > 0:
 		magazine.enabled = true
+		magazine.enable_collision()
 	magazine = null
 	var round_count: int = 0
 	if round_chambered:
@@ -176,7 +176,7 @@ func _on_magazine_ejected():
 
 func _on_MagazineSnapZone_has_picked_up(object):
 	if is_picked_up():
-		#print(object)
+		print_debug(object)
 		magazine = object
 		magazine.disable_collision()
 		magazine.enabled = false
@@ -192,6 +192,8 @@ func _on_picked_up(pickable):
 	main_hand = _grab_driver.primary.controller
 	slide_pickup.enabled = true
 	slide_pickup.collision_layer = slide_layer
+	magazine_snap_zone.enabled = true
+	magazine_snap_zone.monitoring = true
 	var round_count: int = 0
 	if magazine:
 		round_count += magazine.ammo_count
@@ -204,6 +206,8 @@ func _on_dropped(pickable):
 		slide_pickup.drop()
 	slide_pickup.enabled = false
 	slide_pickup.collision_layer = 0
+	magazine_snap_zone.monitoring = false
+	magazine_snap_zone.enabled = false
 	supporting_hand = null
 	main_hand = null
 	print_debug("DROPPED HERE")
@@ -332,5 +336,5 @@ func _on_released(pickable: Variant, by: Variant) -> void:
 	print_debug("We were dropped by " + by.name)
 	#if is_picked_up():
 		#supporting_hand = null
-	if by == main_hand and supporting_hand:
-		supporting_hand.drop_object()
+	#if by == main_hand and supporting_hand:
+		#supporting_hand.drop_object()

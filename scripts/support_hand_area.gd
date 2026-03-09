@@ -33,6 +33,7 @@ func _on_area_entered(area: Area3D) -> void:
 		supporting_hand._pick_up_object(attached_pickup)
 		print_debug(attached_pickup._grab_driver.secondary)
 		supporting = true
+		#disable_support()
 
 func _on_area_exited(area: Area3D) -> void:
 	if !attached_pickup.is_picked_up() or !supporting:
@@ -57,4 +58,4 @@ func release_supporting_hand():
 	attached_pickup.second_hand_grab = XRToolsPickable.SecondHandGrab.IGNORE
 	supporting = false
 	grab_point.enabled = false
-	print_debug("Supporting disabled: :" + str(supporting))
+	print_debug("Supporting disabled: " + str(supporting))
