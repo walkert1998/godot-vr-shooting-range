@@ -2,13 +2,15 @@ class_name XRFirearmTrigger
 extends Node
 
 
-@export var mesh_trigger : MeshInstance3D
+@export var mesh_trigger : Node3D
+
+@export var connected_pickable: XRToolsPickable
 
 @export var value : float
 
 @export var handle_grabpoints : Array[XRToolsGrabPoint]
 
-@onready var _parent : XRToolsPickable = get_parent()
+#@onready var _parent : XRToolsPickable = get_parent()
 
 # Current controller holding this object
 var _current_controller : XRController3D
@@ -24,16 +26,16 @@ func is_xr_class(name : String) -> bool:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Listen for when this object is picked up or dropped
-	_parent.grabbed.connect(_on_grabbed)
-	_parent.released.connect(_on_released)
+	connected_pickable.grabbed.connect(_on_grabbed)
+	connected_pickable.released.connect(_on_released)
 	# disable handle grabpoints on ready
 	for handle_grabpoint in handle_grabpoints:
 		handle_grabpoint.enabled = false
 
 func _physics_process(_delta):
-	if is_instance_valid(_parent):
+	if is_instance_valid(connected_pickable):
 		# toggle handle grabpoints if parent got grabbed/released
-		if _parent.get_picked_up_by():
+		if connected_pickable.get_picked_up_by():
 			for handle_grabpoint in handle_grabpoints:
 				handle_grabpoint.enabled = true
 		else:
@@ -57,8 +59,8 @@ func _on_released(_pickable, _by) -> void:
 # Update the controller signals
 func _update_controller_signals() -> void:
 	# Find the primary controller holding the firearm
-	var controller := _parent.get_picked_up_by_controller()
-	var grab_point := _parent.get_active_grab_point() as XRToolsGrabPointHand
+	var controller := connected_pickable.get_picked_up_by_controller()
+	var grab_point := connected_pickable.get_active_grab_point() as XRToolsGrabPointHand
 	if not grab_point or grab_point.handle != "Grip":
 		controller = null
 

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsqqdnjm63umx"]
+
+[ext_resource type="Texture2D" uid="uid://d3nw8iw27mwqb" path="res://textures/Quest2_controller.png" id="1_p44hu"]
+
+[node name="HelpScreen" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.0005
+texture = ExtResource("1_p44hu")

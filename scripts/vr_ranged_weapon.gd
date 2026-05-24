@@ -64,7 +64,7 @@ func _physics_process(delta):
 		var vec = ranged_weapon.recoil_position_z.sample(current_time) * -transform.basis.z
 		if supporting_hand != null:
 			target_rot.x *= 0.2
-			vec.z = 0
+			vec = Vector3.ZERO
 		target_pos = vec + position
 		current_time += delta
 		position = lerp(position, target_pos, 10 * delta)

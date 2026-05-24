@@ -343,6 +343,7 @@ func let_go(by: Node3D, p_linear_velocity: Vector3, p_angular_velocity: Vector3)
 	grab.release()
 
 	# Test if still grabbing
+
 	if _grab_driver && _grab_driver.primary:
 		# Test if we need to swap grab-points
 		if is_instance_valid(_grab_driver.primary.hand_point):
